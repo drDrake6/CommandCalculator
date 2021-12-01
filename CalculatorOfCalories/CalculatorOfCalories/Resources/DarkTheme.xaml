@@ -3,4 +3,13 @@
     <Style x:Key="Theme" TargetType="{x:Type Window}">
         <Setter Property="Background" Value="#5A5A5A"/>
     </Style>
+    <Style x:Key="FontBlockColor" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <Style x:Key="FontBoxColor" TargetType="{x:Type TextBox}">
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <Style x:Key="FontRadioColor" TargetType="{x:Type RadioButton}">
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
 </ResourceDictionary>

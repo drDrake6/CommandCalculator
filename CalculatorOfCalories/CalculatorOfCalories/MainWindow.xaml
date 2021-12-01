@@ -20,8 +20,8 @@
         <UniformGrid Columns="2">
             <UniformGrid Rows="3">
                 <Button Content="Add product" Name="AddProduct" Margin="10" Click="AddProduct_Click"/>
-                <Button Content="Change product" Name="ChangeProduct" Margin="10"/>
-                <Button Content="Delete Product" Name="DeleteProduct" Margin="10"/>
+                <Button Content="Change product" Name="ChangeProduct" Margin="10" Click="ChangeProduct_Click"/>
+                <Button Content="Delete Product" Name="DeleteProduct" Margin="10" Click="DeleteProduct_Click"/>
             </UniformGrid>
 
             <UniformGrid Rows="3">
@@ -32,22 +32,22 @@
         </UniformGrid>
         <UniformGrid Rows="3">
             <UniformGrid VerticalAlignment="Center" Columns="3">
-                <TextBlock HorizontalAlignment="Center" Text="Theme:"/>
-                <RadioButton IsChecked="True" VerticalContentAlignment="Center" Content="Light" Name="LightTheme" Checked="LightTheme_Checked"/>
-                <RadioButton VerticalContentAlignment="Center" Content="Dark" Name="DarkTheme" Checked="DarkTheme_Checked"/>
+                <TextBlock Style="{DynamicResource ResourceKey=FontBlockColor}" HorizontalAlignment="Center" Text="Theme:"/>
+                <RadioButton Style="{DynamicResource ResourceKey=FontRadioColor}" IsChecked="True" VerticalContentAlignment="Center" Content="Light" Name="LightTheme" Checked="LightTheme_Checked"/>
+                <RadioButton Style="{DynamicResource ResourceKey=FontRadioColor}" VerticalContentAlignment="Center" Content="Dark" Name="DarkTheme" Checked="DarkTheme_Checked"/>
             </UniformGrid>
             <UniformGrid Columns="2">
                 <UniformGrid Rows="4" HorizontalAlignment="Center">
-                    <TextBlock Text="Mobility"/>
-                    <RadioButton IsChecked="True" VerticalContentAlignment="Center" Content="Low" Name="LowMobility" Checked="Mobility_Checked"/>
-                    <RadioButton VerticalContentAlignment="Center" Content="Middle" Name="MiddleMobility" Checked="Mobility_Checked"/>
-                    <RadioButton VerticalContentAlignment="Center" Content="High" Name="HighMobility" Checked="Mobility_Checked"/>
+                    <TextBlock Style="{DynamicResource ResourceKey=FontBlockColor}" Text="Mobility"/>
+                    <RadioButton Style="{DynamicResource ResourceKey=FontRadioColor}" IsChecked="True" VerticalContentAlignment="Center" Content="Low" Name="LowMobility" Checked="Mobility_Checked"/>
+                    <RadioButton Style="{DynamicResource ResourceKey=FontRadioColor}" VerticalContentAlignment="Center" Content="Middle" Name="MiddleMobility" Checked="Mobility_Checked"/>
+                    <RadioButton Style="{DynamicResource ResourceKey=FontRadioColor}" VerticalContentAlignment="Center" Content="High" Name="HighMobility" Checked="Mobility_Checked"/>
                 </UniformGrid>
                 <UniformGrid Rows="4" HorizontalAlignment="Center">
-                    <TextBlock Text="Criteries"/>
-                    <RadioButton IsChecked="True" VerticalContentAlignment="Center" Content="Weight reduction" Name="WeightReduction" Checked="Criteries_Checked"/>
-                    <RadioButton VerticalContentAlignment="Center" Content="Weight gain" Name="WeightGain" Checked="Criteries_Checked"/>
-                    <RadioButton VerticalContentAlignment="Center" Content="Weight retention" Name="WeightRetention" Checked="Criteries_Checked"/>
+                    <TextBlock Style="{DynamicResource ResourceKey=FontBlockColor}" Text="Criteries"/>
+                    <RadioButton Style="{DynamicResource ResourceKey=FontRadioColor}" IsChecked="True" VerticalContentAlignment="Center" Content="Weight reduction" Name="WeightReduction" Checked="Criteries_Checked"/>
+                    <RadioButton Style="{DynamicResource ResourceKey=FontRadioColor}" VerticalContentAlignment="Center" Content="Weight gain" Name="WeightGain" Checked="Criteries_Checked"/>
+                    <RadioButton Style="{DynamicResource ResourceKey=FontRadioColor}" VerticalContentAlignment="Center" Content="Weight retention" Name="WeightRetention" Checked="Criteries_Checked"/>
                 </UniformGrid>
             </UniformGrid>
             <UniformGrid Columns="2">

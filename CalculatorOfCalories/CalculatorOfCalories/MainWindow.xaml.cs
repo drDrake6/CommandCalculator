@@ -79,7 +79,7 @@ namespace CalculatorOfCalories
         {
             Effect = new BlurEffect();
 
-            AddProduct addProduct = new AddProduct(Background);
+            AddProduct addProduct = new AddProduct(Resources.MergedDictionaries[0]);
             addProduct.Owner = this;
             addProduct.ShowDialog();
         }
@@ -87,6 +87,24 @@ namespace CalculatorOfCalories
         private void Count_Click(object sender, RoutedEventArgs e)
         {
             //событе подсчёта
+        }
+
+        private void ChangeProduct_Click(object sender, RoutedEventArgs e)
+        {
+            Effect = new BlurEffect();
+
+            ChangeProduct addProduct = new ChangeProduct(Resources.MergedDictionaries[0]);
+            addProduct.Owner = this;
+            addProduct.ShowDialog();
+        }
+
+        private void DeleteProduct_Click(object sender, RoutedEventArgs e)
+        {
+            Effect = new BlurEffect();
+
+            DaleteProduct addProduct = new DaleteProduct(Resources.MergedDictionaries[0]);
+            addProduct.Owner = this;
+            addProduct.ShowDialog();
         }
     }
 }

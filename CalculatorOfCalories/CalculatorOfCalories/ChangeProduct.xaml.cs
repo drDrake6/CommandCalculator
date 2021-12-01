@@ -15,21 +15,22 @@ using System.Windows.Shapes;
 namespace CalculatorOfCalories
 {
     /// <summary>
-    /// Interaction logic for AddProduct.xaml
+    /// Interaction logic for ChangeProduct.xaml
     /// </summary>
-    public partial class AddProduct : Window
+    public partial class ChangeProduct : Window
     {
         private string name;
         private double clories;
         private double mass;
 
-        public event EventHandler<EventArgs> add;
+        public event EventHandler<EventArgs> choose;
+        public event EventHandler<EventArgs> change;
 
         public string GetSetName { get => name; set => name = value; }
         public double GetSetClories { get => clories; set => clories = value; }
         public double GetSetMass { get => mass; set => mass = value; }
 
-        public AddProduct(ResourceDictionary resourceDictionary)
+        public ChangeProduct(ResourceDictionary resourceDictionary)
         {
             InitializeComponent();
             Resources = resourceDictionary;
@@ -41,7 +42,17 @@ namespace CalculatorOfCalories
             Close();
         }
 
-        private void Add_Click(object sender, RoutedEventArgs e)
+        private void Products_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Name.IsEnabled = true;
+            Calories.IsEnabled = true;
+            Mass.IsEnabled = true;
+            Change.IsEnabled = true;
+
+            //событие выбора
+        }
+
+        private void Change_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -49,7 +60,7 @@ namespace CalculatorOfCalories
                 clories = Convert.ToDouble(Calories.Text);
                 mass = Convert.ToDouble(Mass.Text);
 
-                //событие добавления
+                //событие изменения
             }
             catch (Exception ex)
             {
