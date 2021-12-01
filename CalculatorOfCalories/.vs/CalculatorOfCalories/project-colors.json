@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "b35c6773-59d4-43f5-8363-6a9245bd5000": {
+      "ProjectGuid": "b35c6773-59d4-43f5-8363-6a9245bd5000",
+      "DisplayName": "CalculatorOfCalories",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
