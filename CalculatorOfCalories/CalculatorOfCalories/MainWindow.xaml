@@ -4,12 +4,22 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CalculatorOfCalories"
+        xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Calories calculator" Height="200" Width="500" Icon="/Icon.png">
+        Title="Calories calculator" Height="300" Width="600" WindowStartupLocation="CenterScreen" Icon="/Icon.png"
+        Style="{DynamicResource ResourceKey=Theme}">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/LightTheme.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
     <UniformGrid Columns="2">
         <UniformGrid Columns="2">
             <UniformGrid Rows="3">
-                <Button Content="Add product" Name="AddProduct" Margin="10"/>
+                <Button Content="Add product" Name="AddProduct" Margin="10" Click="AddProduct_Click"/>
                 <Button Content="Change product" Name="ChangeProduct" Margin="10"/>
                 <Button Content="Delete Product" Name="DeleteProduct" Margin="10"/>
             </UniformGrid>
@@ -23,29 +33,28 @@
         <UniformGrid Rows="3">
             <UniformGrid VerticalAlignment="Center" Columns="3">
                 <TextBlock HorizontalAlignment="Center" Text="Theme:"/>
-                <RadioButton VerticalContentAlignment="Center" Content="Light" Name="LightTheme"/>
-                <RadioButton VerticalContentAlignment="Center" Content="Dark" Name="DarkTheme"/>
+                <RadioButton IsChecked="True" VerticalContentAlignment="Center" Content="Light" Name="LightTheme" Checked="LightTheme_Checked"/>
+                <RadioButton VerticalContentAlignment="Center" Content="Dark" Name="DarkTheme" Checked="DarkTheme_Checked"/>
             </UniformGrid>
             <UniformGrid Columns="2">
                 <UniformGrid Rows="4" HorizontalAlignment="Center">
                     <TextBlock Text="Mobility"/>
-                    <RadioButton VerticalContentAlignment="Center" Content="Low" Name="LowMobility"/>
-                    <RadioButton VerticalContentAlignment="Center" Content="Middle" Name="MiddleMobility"/>
-                    <RadioButton VerticalContentAlignment="Center" Content="High" Name="HightMobility"/>
+                    <RadioButton IsChecked="True" VerticalContentAlignment="Center" Content="Low" Name="LowMobility" Checked="Mobility_Checked"/>
+                    <RadioButton VerticalContentAlignment="Center" Content="Middle" Name="MiddleMobility" Checked="Mobility_Checked"/>
+                    <RadioButton VerticalContentAlignment="Center" Content="High" Name="HighMobility" Checked="Mobility_Checked"/>
                 </UniformGrid>
                 <UniformGrid Rows="4" HorizontalAlignment="Center">
                     <TextBlock Text="Criteries"/>
-                    <RadioButton VerticalContentAlignment="Center" Content="Weight reduction" Name="WeightReduction"/>
-                    <RadioButton VerticalContentAlignment="Center" Content="Weight gain" Name="WeightGain"/>
-                    <RadioButton VerticalContentAlignment="Center" Content="Weight retention" Name="WeightRetention"/>
+                    <RadioButton IsChecked="True" VerticalContentAlignment="Center" Content="Weight reduction" Name="WeightReduction" Checked="Criteries_Checked"/>
+                    <RadioButton VerticalContentAlignment="Center" Content="Weight gain" Name="WeightGain" Checked="Criteries_Checked"/>
+                    <RadioButton VerticalContentAlignment="Center" Content="Weight retention" Name="WeightRetention" Checked="Criteries_Checked"/>
                 </UniformGrid>
             </UniformGrid>
             <UniformGrid Columns="2">
-                <Button Content="Count" Margin="10" Name="Count"/>
-                <UniformGrid Rows="2" Margin="10">
-                    <TextBlock Text="Result:" VerticalAlignment="Center"/>
-                    <TextBox VerticalAlignment="Top" IsReadOnly="True"/>
-                </UniformGrid>
+                <Button Content="Count" Margin="10" Name="Count" Click="Count_Click"/>
+                <TextBox VerticalAlignment="Center" Margin="10,10,10,17" IsReadOnly="True"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                         material:HintAssist.Hint="Result"/>
             </UniformGrid>
         </UniformGrid>
     </UniformGrid>
