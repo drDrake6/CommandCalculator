@@ -43,11 +43,18 @@ namespace CalculatorOfCalories
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            name = Name.Text;
-            clories = Convert.ToDouble(Calories.Text);
-            mass = Convert.ToDouble(Mass.Text);
+            try
+            {
+                name = Name.Text;
+                clories = Convert.ToDouble(Calories.Text);
+                mass = Convert.ToDouble(Mass.Text);
 
-            //событие добавления
+                //событие добавления
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
