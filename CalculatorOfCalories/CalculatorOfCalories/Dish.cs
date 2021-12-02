@@ -43,7 +43,7 @@ namespace CalculatorOfCalories
                     }
                     else
                     {
-                        throw new Exception("Некорректный индекс! " + (index - min));
+                        throw new Exception("Некорректный индекс! " + index);
                     }
                 }
             }
