@@ -60,7 +60,7 @@ namespace CalculatorOfCalories
                 clories = Convert.ToDouble(Calories.Text);
                 mass = Convert.ToDouble(Mass.Text);
 
-                //событие изменени
+                //событие
             }
             catch (Exception ex)
             {
