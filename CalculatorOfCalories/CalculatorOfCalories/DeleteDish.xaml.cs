@@ -52,7 +52,7 @@ namespace CalculatorOfCalories
                 {
                     name = Products.Text;
 
-                    //событие удаления
+                    //событие удалени
                 }
                 catch (Exception ex)
                 {
