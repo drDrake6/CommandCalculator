@@ -84,11 +84,6 @@ namespace CalculatorOfCalories
             addProduct.ShowDialog();
         }
 
-        private void Count_Click(object sender, RoutedEventArgs e)
-        {
-            //событе подсчёта
-        }
-
         private void ChangeProduct_Click(object sender, RoutedEventArgs e)
         {
             Effect = new BlurEffect();
@@ -105,6 +100,38 @@ namespace CalculatorOfCalories
             DaleteProduct addProduct = new DaleteProduct(Resources.MergedDictionaries[0]);
             addProduct.Owner = this;
             addProduct.ShowDialog();
+        }
+
+        private void AddDish_Click(object sender, RoutedEventArgs e)
+        {
+            Effect = new BlurEffect();
+
+            AddDish addProduct = new AddDish(Resources.MergedDictionaries[0]);
+            addProduct.Owner = this;
+            addProduct.ShowDialog();
+        }
+
+        private void ChangeDish_Click(object sender, RoutedEventArgs e)
+        {
+            Effect = new BlurEffect();
+
+            ChangeDish addProduct = new ChangeDish(Resources.MergedDictionaries[0]);
+            addProduct.Owner = this;
+            addProduct.ShowDialog();
+        }
+
+        private void DeleteDish_Click(object sender, RoutedEventArgs e)
+        {
+            Effect = new BlurEffect();
+
+            DeleteDish addProduct = new DeleteDish(Resources.MergedDictionaries[0]);
+            addProduct.Owner = this;
+            addProduct.ShowDialog();
+        }
+
+        private void Count_Click(object sender, RoutedEventArgs e)
+        {
+            //событе подсчёта
         }
     }
 }

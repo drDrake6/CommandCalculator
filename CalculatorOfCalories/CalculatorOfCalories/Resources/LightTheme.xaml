@@ -7,10 +7,10 @@
     <Style x:Key="FontBlockColor" TargetType="{x:Type TextBlock}">
         <Setter Property="Foreground" Value="Black"/>
     </Style>
-    <Style x:Key="FontBoxColor" TargetType="{x:Type TextBox}">
+    <Style x:Key="FontRadioColor" TargetType="{x:Type RadioButton}">
         <Setter Property="Foreground" Value="Black"/>
     </Style>
-    <Style x:Key="FontRadioColor" TargetType="{x:Type RadioButton}">
+    <Style x:Key="FontListColor" TargetType="{x:Type ListBox}">
         <Setter Property="Foreground" Value="Black"/>
     </Style>
 </ResourceDictionary>

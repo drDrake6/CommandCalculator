@@ -15,17 +15,17 @@ using System.Windows.Shapes;
 namespace CalculatorOfCalories
 {
     /// <summary>
-    /// Interaction logic for DaleteProduct.xaml
+    /// Interaction logic for DeleteDish.xaml
     /// </summary>
-    public partial class DaleteProduct : Window
+    public partial class DeleteDish : Window
     {
-        string name;
+        private string name;
 
-        public event EventHandler<EventArgs> delete;
+        event EventHandler<EventArgs> deletel;
 
         public string GetSetName { get => name; set => name = value; }
 
-        public DaleteProduct(ResourceDictionary resourceDictionary)
+        public DeleteDish(ResourceDictionary resourceDictionary)
         {
             InitializeComponent();
             Resources = resourceDictionary;
