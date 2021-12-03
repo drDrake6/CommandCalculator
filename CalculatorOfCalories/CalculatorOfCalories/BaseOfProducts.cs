@@ -8,36 +8,16 @@ namespace CalculatorOfCalories
 {
     namespace Logic
     {
-        class Dish
+        class BaseOfProducts
         {
             private List<Product> products;
-            private string name;
 
-            public string Name
+            public BaseOfProducts()
             {
-                get { return name; }
-                set
-                {
-                    if (value.Trim().Length == 0)
-                        throw new Exception("имя продукта не может быть пустым или состоять из одних пробелов");
-
-                    name = value;
-                }
-            }
-
-            public Dish()
-            {
-                Name = "default";
                 products = new List<Product>();
             }
 
-            public Dish(string _name)
-            {
-                Name = _name;
-                products = new List<Product>();
-            }
-
-            public Dish(List<Product> _products, string _name) : this(_name)
+            public BaseOfProducts(List<Product> _products)
             {
                 products = _products;
             }
@@ -97,18 +77,6 @@ namespace CalculatorOfCalories
             {
                 products.Clear();
             }
-
-            public double CalcCalories()
-            {
-                double calories = 0;
-                foreach (Product product in products)
-                {
-                    calories += product.GetTotalCalories();
-                }
-                return calories;
-            }
         }
     }
-
-    
 }
