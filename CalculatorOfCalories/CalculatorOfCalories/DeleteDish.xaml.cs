@@ -24,6 +24,7 @@ namespace CalculatorOfCalories
         event EventHandler<EventArgs> deletel;
 
         public string GetSetName { get => name; set => name = value; }
+        public ComboBox GetSetProducts { get => Dishes; set => Dishes = value; }
 
         public DeleteDish(ResourceDictionary resourceDictionary)
         {
@@ -50,7 +51,7 @@ namespace CalculatorOfCalories
             {
                 try
                 {
-                    name = Products.Text;
+                    name = Dishes.Text;
 
                     //событие удалени
                 }

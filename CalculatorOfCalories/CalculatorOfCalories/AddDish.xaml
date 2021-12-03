@@ -12,8 +12,7 @@
         <UniformGrid Columns="3">
             <DockPanel Margin="10">
                 <TextBlock DockPanel.Dock="Top" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Products" Margin="0,0,0,5"/>
-                <ListBox Name="Products" SelectionMode="Multiple" BorderThickness="0"
-                     Style="{DynamicResource ResourceKey=FontListColor}" SelectionChanged="Products_SelectionChanged"/>
+                <ListBox Name="Products" SelectionMode="Multiple" BorderThickness="0" SelectionChanged="Products_SelectionChanged"/>
             </DockPanel>
             <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Name"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 

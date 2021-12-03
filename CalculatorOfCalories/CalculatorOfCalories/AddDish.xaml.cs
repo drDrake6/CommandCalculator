@@ -24,6 +24,7 @@ namespace CalculatorOfCalories
 
         public string GetSetName { get => name; set => name = value; }
         public string GetSetCalories { get => calories; set => calories = value; }
+        public ListBox GetSetProducts { get => Products; set => Products = value; }
 
         public event EventHandler<EventArgs> add;
         public event EventHandler<EventArgs> change;
