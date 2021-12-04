@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CalculatorOfCalories"
         xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Calories calculator" Height="400" Width="850" MinWidth="850" MinHeight="400" WindowStartupLocation="CenterScreen" Icon="/Icon.png"
+        Title="Calories calculator" Height="400" Width="900" MinWidth="900" MinHeight="400" WindowStartupLocation="CenterScreen" Icon="/Icon.png"
         Style="{DynamicResource ResourceKey=Theme}">
     <Window.Resources>
         <ResourceDictionary>

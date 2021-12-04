@@ -49,7 +49,7 @@ namespace CalculatorOfCalories
             Mass.IsEnabled = true;
             Change.IsEnabled = true;
 
-            choose.Invoke(this, null);
+            choose.Invoke(this, new EventArgs());
 
             Name.Text = name;
             Calories.Text = calories.ToString();
@@ -64,7 +64,7 @@ namespace CalculatorOfCalories
                 calories = Convert.ToDouble(Calories.Text);
                 mass = Convert.ToDouble(Mass.Text);
 
-                change.Invoke(this, null);
+                change.Invoke(this, new EventArgs());
                 MessageBox.Show("Product was edit", "", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)

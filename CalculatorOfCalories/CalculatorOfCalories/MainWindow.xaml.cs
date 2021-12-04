@@ -96,7 +96,7 @@ namespace CalculatorOfCalories
             Effect = new BlurEffect();
 
             AddProduct addProduct = new AddProduct(Resources.MergedDictionaries[0]);
-            EventAddProduct.Invoke(addProduct, null);
+            EventAddProduct.Invoke(addProduct, new EventArgs());
             addProduct.Owner = this;
             addProduct.ShowDialog();
         }
@@ -109,7 +109,7 @@ namespace CalculatorOfCalories
 
             try
             {
-                EventChangeProduct.Invoke(changeProduct, null);
+                EventChangeProduct.Invoke(changeProduct, new EventArgs());
                 changeProduct.Owner = this;
                 changeProduct.ShowDialog();
             }
@@ -129,7 +129,7 @@ namespace CalculatorOfCalories
 
             try
             {
-                EventDeleteProduct.Invoke(deleteProduct, null);
+                EventDeleteProduct.Invoke(deleteProduct, new EventArgs());
                 deleteProduct.Owner = this;
                 deleteProduct.ShowDialog();
             }
@@ -145,10 +145,20 @@ namespace CalculatorOfCalories
         {
             Effect = new BlurEffect();
 
-            AddDish addProduct = new AddDish(Resources.MergedDictionaries[0]);
-            // вызов события добавления блюда
-            addProduct.Owner = this;
-            addProduct.ShowDialog();
+            AddDish addDish = new AddDish(Resources.MergedDictionaries[0]);
+            
+            try
+            {
+                EventAddDish.Invoke(addDish, new EventArgs());
+                addDish.Owner = this;
+                addDish.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            Effect = null;
         }
 
         private void ChangeDish_Click(object sender, RoutedEventArgs e)

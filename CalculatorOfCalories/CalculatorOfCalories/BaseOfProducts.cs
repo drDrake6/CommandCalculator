@@ -51,6 +51,7 @@ namespace CalculatorOfCalories
             public void Add(Product product)
             {
                 products.Add(product);
+                products.Sort();
             }
 
             public void Delete(Product product)
@@ -76,6 +77,32 @@ namespace CalculatorOfCalories
             public void Clear()
             {
                 products.Clear();
+            }
+
+            public Product FindByName(string name)
+            {
+                foreach (Product item in products)
+                {
+                    if (item.Name == name)
+                        return item;
+                }
+
+                throw new ApplicationException("Product are not axists");
+            }
+
+            public void CheckToExistsProduct(string name)
+            {
+                foreach (Product item in products)
+                {
+                    if (item.Name == name)
+                        throw new ApplicationException("Product with the same name already axists");
+                }
+            }
+
+            public void CheckForEmpty()
+            {
+                if (products.Count < 1)
+                    throw new ApplicationException("No products");
             }
         }
     }

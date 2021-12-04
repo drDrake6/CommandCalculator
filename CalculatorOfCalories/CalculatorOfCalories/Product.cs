@@ -9,7 +9,7 @@ namespace CalculatorOfCalories
     namespace Logic
     {
 
-        class Product
+        class Product : IComparable<Product>
         {
             private string name;
             private double calories_per_100_gramms;
@@ -21,7 +21,7 @@ namespace CalculatorOfCalories
                 set 
                 {
                     if (value.Trim().Length == 0)
-                     throw new Exception("имя продукта не может быть пустым или состоять из одних пробелов");
+                     throw new Exception("Product name cannot be empty or contain only spaces");
 
                     name = value;
                 }
@@ -33,7 +33,7 @@ namespace CalculatorOfCalories
                 set
                 {
                     if (value < 0)
-                        throw new Exception("нельзя есть объекты с отрицательной энергией!");
+                        throw new Exception("You can not eat objects with negative energy");
 
                     calories_per_100_gramms = value;
                 }
@@ -45,10 +45,15 @@ namespace CalculatorOfCalories
                 set
                 {
                     if (value < 0)
-                        throw new Exception("нельзя есть объекты с отрицательной массой!");
+                        throw new Exception("You cannot eat objects with negative mass");
 
                     mass = value;
                 }
+            }
+
+            public int CompareTo(Product? other)
+            {
+                return Name.CompareTo(other.Name);
             }
 
             public double GetTotalCalories()

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,15 +12,16 @@ namespace CalculatorOfCalories
     internal class Presenter
     {
         private readonly Model model = new Model();
-        private MainWindow mainWindow = null;
+        private MainWindow? mainWindow = null;
 
         public Presenter(MainWindow mainWindow)
         {
-            mainWindow = mainWindow;
+            this.mainWindow = mainWindow;
 
             mainWindow.EventAddProduct += new EventHandler<EventArgs>(AddProductFunction);
             mainWindow.EventChangeProduct += new EventHandler<EventArgs>(ChangeProductFunction);
             mainWindow.EventDeleteProduct += new EventHandler<EventArgs>(DeleteProductFunction);
+            mainWindow.EventAddDish += new EventHandler<EventArgs>(AddDishFunction);
         }
 
         private void AddProduct(string name, double calories, double mass)
@@ -32,20 +34,37 @@ namespace CalculatorOfCalories
             model.AllProducts.Add(product);
         }
 
+        private void AddDish(string name, List<Product> products)
+        {
+            Dish dish = new Dish(products, name);
+
+            model.AllDishs.Add(dish);
+        }
+
+        private void ChangeMainDishes()
+        {
+            mainWindow.GetSetDishes.Items.Clear();
+
+            foreach (Dish product in model.AllDishs.GetListOfDishes())
+                mainWindow.GetSetDishes.Items.Add(product.Name);
+        }
+
         #region AddProduct
         private void AddProductFunction(object? sender, EventArgs e)
         {
-            AddProduct addProduct = sender as AddProduct;
+            AddProduct? addProduct = sender as AddProduct;
             addProduct.add += new EventHandler<EventArgs>(AddProductImBase);
         }
 
         private void AddProductImBase(object? sender, EventArgs e)
         {
-            AddProduct addProduct = sender as AddProduct;
+            AddProduct? addProduct = sender as AddProduct;
 
             string name = addProduct.GetSetName;
             double calories = addProduct.GetSetClories;
             double mass = addProduct.GetSetMass;
+
+            model.AllProducts.CheckToExistsProduct(name);
 
             AddProduct(name, calories, mass);
         }
@@ -54,10 +73,9 @@ namespace CalculatorOfCalories
         #region ChangeProduct
         private void ChangeProductFunction(object? sender, EventArgs e)
         {
-            if (model.AllProducts.GetListOfProducts().Count < 1)
-                throw new ApplicationException("No products");
+            model.AllProducts.CheckForEmpty();
 
-            ChangeProduct changeProduct = sender as ChangeProduct;
+            ChangeProduct? changeProduct = sender as ChangeProduct;
             changeProduct.change += new EventHandler<EventArgs>(ChangeProductImBase);
             changeProduct.choose += new EventHandler<EventArgs>(ChooseProduct);
 
@@ -67,7 +85,7 @@ namespace CalculatorOfCalories
 
         private void ChooseProduct(object? sender, EventArgs e)
         {
-            ChangeProduct changeProduct = sender as ChangeProduct;
+            ChangeProduct? changeProduct = sender as ChangeProduct;
 
             int index = changeProduct.GetSetProducts.SelectedIndex;
 
@@ -85,7 +103,7 @@ namespace CalculatorOfCalories
 
         private void ChangeProductImBase(object? sender, EventArgs e)
         {
-            ChangeProduct changeProduct = sender as ChangeProduct;
+            ChangeProduct? changeProduct = sender as ChangeProduct;
 
             string name = changeProduct.GetSetName;
             double calories = changeProduct.GetSetCalories;
@@ -97,21 +115,20 @@ namespace CalculatorOfCalories
             AddProduct(name, calories, mass);
 
             changeProduct.GetSetProducts.Items.Clear();
+
             foreach (Product product in model.AllProducts.GetListOfProducts())
                 changeProduct.GetSetProducts.Items.Add(product.Name);
 
-            changeProduct.GetSetProducts.SelectedIndex = 
-                model.AllProducts.GetListOfProducts().Count - 1;
+            changeProduct.GetSetProducts.SelectedIndex = 0;
         }
         #endregion
 
         #region DeleteProduct
         private void DeleteProductFunction(object? sender, EventArgs e)
         {
-            if (model.AllProducts.GetListOfProducts().Count < 1)
-                throw new ApplicationException("No products");
+            model.AllProducts.CheckForEmpty();
 
-            DaleteProduct deleteProduct = sender as DaleteProduct;
+            DaleteProduct? deleteProduct = sender as DaleteProduct;
             deleteProduct.delete += new EventHandler<EventArgs>(DeleteProductImBase);
 
             foreach (Product product in model.AllProducts.GetListOfProducts())
@@ -120,14 +137,77 @@ namespace CalculatorOfCalories
 
         private void DeleteProductImBase(object? sender, EventArgs e)
         {
-            DaleteProduct deleteProduct = sender as DaleteProduct;
+            DaleteProduct? deleteProduct = sender as DaleteProduct;
 
             int index = deleteProduct.GetSetProducts.SelectedIndex;
             model.AllProducts.DeleteByIndex(index);
 
+            if (model.AllProducts.GetListOfProducts().Count < 1)
+            {
+                deleteProduct.Close();
+                return;
+            }
+
             deleteProduct.GetSetProducts.Items.Clear();
             foreach (Product product in model.AllProducts.GetListOfProducts())
                 deleteProduct.GetSetProducts.Items.Add(product.Name);
+        }
+        #endregion
+
+        #region AddDish
+        private void AddDishFunction(object? sender, EventArgs e)
+        {
+            model.AllProducts.CheckForEmpty();
+
+            AddDish? addDish = sender as AddDish;
+            addDish.add += new EventHandler<EventArgs>(AddDishInBase);
+            addDish.choose += new EventHandler<EventArgs>(ChooseDish);
+
+            foreach (Product product in model.AllProducts.GetListOfProducts())
+                addDish.GetSetProducts.Items.Add(product.Name);
+        }
+
+        private void AddDishInBase(object? sender, EventArgs e)
+        {
+            AddDish? addDish = sender as AddDish;
+            
+            string name = addDish.GetSetName;
+            double calories = addDish.GetSetCalories;
+
+            model.AllDishs.CheckToExistsDisht(name);
+
+            IList products = addDish.GetSetProducts.SelectedItems;
+            List<Product> productsForDish = new List<Product>();
+
+            foreach (string product in products)
+                productsForDish.Add(model.AllProducts.FindByName(product));
+
+            AddDish(name, productsForDish);
+
+            ChangeMainDishes();
+        }
+
+        private void ChooseDish(object? sender, EventArgs e)
+        {
+            AddDish? addDish = sender as AddDish;
+
+            IList products = addDish.GetSetProducts.SelectedItems;
+
+            double caloriesOfDish = 0;
+            foreach (string name in products)
+            {
+                foreach (Product product in model.AllProducts.GetListOfProducts())
+                {
+                    if (product.Name == name)
+                    {
+                        caloriesOfDish += product.CaloriesPer100Gramms;
+                        break;
+                    }
+                }
+            }
+
+            addDish.GetSetCalories = caloriesOfDish;
+            
         }
         #endregion
     }

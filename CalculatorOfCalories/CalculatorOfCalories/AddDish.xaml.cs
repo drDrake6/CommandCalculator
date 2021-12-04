@@ -20,14 +20,14 @@ namespace CalculatorOfCalories
     public partial class AddDish : Window
     {
         private string name;
-        private string calories;
+        private double calories = 0;
 
         public string GetSetName { get => name; set => name = value; }
-        public string GetSetCalories { get => calories; set => calories = value; }
+        public double GetSetCalories { get => calories; set => calories = value; }
         public ListBox GetSetProducts { get => Products; set => Products = value; }
 
         public event EventHandler<EventArgs> add;
-        public event EventHandler<EventArgs> change;
+        public event EventHandler<EventArgs> choose;
 
         public AddDish(ResourceDictionary resourceDictionary)
         {
@@ -35,9 +35,19 @@ namespace CalculatorOfCalories
             Resources = resourceDictionary;
         }
 
+        private void Clear()
+        {
+            name = "";
+            calories = 0;
+
+            Name.Text = null;
+            Calories.Text = null;
+
+            Products.SelectedIndex = -1;
+        }
+
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            Owner.Effect = null;
             Close();
         }
 
@@ -47,7 +57,9 @@ namespace CalculatorOfCalories
             Calories.IsEnabled = true;
             Add.IsEnabled = true;
 
-            // событие выбора
+            choose.Invoke(this, new EventArgs());
+
+            Calories.Text = calories.ToString();
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
@@ -55,9 +67,12 @@ namespace CalculatorOfCalories
             try
             {
                 name = Name.Text;
-                calories = Calories.Text;
+                calories = Convert.ToDouble(Calories.Text);
 
-                //событие добавления
+                add.Invoke(this, new EventArgs());
+
+                MessageBox.Show("Dish was edded", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                Clear();
             }
             catch (Exception ex)
             {

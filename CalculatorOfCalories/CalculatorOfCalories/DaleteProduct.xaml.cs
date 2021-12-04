@@ -52,7 +52,7 @@ namespace CalculatorOfCalories
                 {
                     name = Products.Text;
 
-                    delete.Invoke(this, null);
+                    delete.Invoke(this, new EventArgs());
                 }
                 catch (Exception ex)
                 {

@@ -35,6 +35,17 @@ namespace CalculatorOfCalories
             Resources = resourceDictionary;
         }
 
+        private void Clear()
+        {
+            name = "";
+            clories = 0;
+            mass = 0;
+
+            Name.Text = null;
+            Calories.Text = null;
+            Mass.Text = null;
+        }
+
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             Owner.Effect = null;
@@ -49,17 +60,10 @@ namespace CalculatorOfCalories
                 clories = Convert.ToDouble(Calories.Text);
                 mass = Convert.ToDouble(Mass.Text);
 
-                add.Invoke(this, null);
+                add.Invoke(this, new EventArgs());
 
                 MessageBox.Show("Product was added", "", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                name = null;
-                clories = 0;
-                mass = 0;
-
-                Name.Text = null;
-                Calories.Text = null;
-                Mass.Text = null;
+                Clear();
             }
             catch (Exception ex)
             {

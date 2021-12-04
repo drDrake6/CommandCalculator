@@ -51,6 +51,7 @@ namespace CalculatorOfCalories
             public void Add(Dish product)
             {
                 dishs.Add(product);
+                dishs.Sort();
             }
 
             public void Delete(Dish product)
@@ -68,7 +69,7 @@ namespace CalculatorOfCalories
                 return dishs.IndexOf(product);
             }
 
-            public List<Dish> GetListOfProducts()
+            public List<Dish> GetListOfDishes()
             {
                 return new List<Dish>(dishs.ToArray());
             }
@@ -86,7 +87,16 @@ namespace CalculatorOfCalories
                         return item;
                 }
 
-                throw new Exception("блюдо с таким именем ненайдено!");
+                throw new Exception("Dish are not exists");
+            }
+
+            public void CheckToExistsDisht(string name)
+            {
+                foreach (Dish item in dishs)
+                {
+                    if (item.Name == name)
+                        throw new ApplicationException("Dish with the same name already axists");
+                }
             }
 
             public double GetCaloriesByName(string name)

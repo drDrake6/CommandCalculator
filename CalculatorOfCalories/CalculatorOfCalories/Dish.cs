@@ -8,7 +8,7 @@ namespace CalculatorOfCalories
 {
     namespace Logic
     {
-        class Dish
+        class Dish : IComparable<Dish>
         {
             private List<Product> products;
             private string name;
@@ -19,7 +19,7 @@ namespace CalculatorOfCalories
                 set
                 {
                     if (value.Trim().Length == 0)
-                        throw new Exception("имя продукта не может быть пустым или состоять из одних пробелов");
+                        throw new Exception("Dish name cannot be empty or contain only spaces");
 
                     name = value;
                 }
@@ -106,6 +106,11 @@ namespace CalculatorOfCalories
                     calories += product.GetTotalCalories();
                 }
                 return calories;
+            }
+
+            public int CompareTo(Dish? other)
+            {
+                return name.CompareTo(other.name);
             }
         }
     }
