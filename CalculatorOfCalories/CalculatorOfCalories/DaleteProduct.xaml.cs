@@ -24,6 +24,7 @@ namespace CalculatorOfCalories
         public event EventHandler<EventArgs> delete;
 
         public string GetSetName { get => name; set => name = value; }
+        public ComboBox GetSetProducts { get => Products; set => Products = value; }
 
         public DaleteProduct(ResourceDictionary resourceDictionary)
         {
