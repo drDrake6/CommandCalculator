@@ -20,8 +20,8 @@ namespace CalculatorOfCalories
     public partial class AddProduct : Window
     {
         private string name;
-        private double clories;
-        private double mass;
+        private double clories = 0;
+        private double mass = 0;
 
         public event EventHandler<EventArgs> add;
 
@@ -49,7 +49,17 @@ namespace CalculatorOfCalories
                 clories = Convert.ToDouble(Calories.Text);
                 mass = Convert.ToDouble(Mass.Text);
 
-                //событие добавления
+                add.Invoke(this, null);
+
+                MessageBox.Show("Product was added", "", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                name = null;
+                clories = 0;
+                mass = 0;
+
+                Name.Text = null;
+                Calories.Text = null;
+                Mass.Text = null;
             }
             catch (Exception ex)
             {

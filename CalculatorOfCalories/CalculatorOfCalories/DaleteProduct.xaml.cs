@@ -39,7 +39,6 @@ namespace CalculatorOfCalories
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            Owner.Effect = null;
             Close();
         }
 
@@ -53,7 +52,7 @@ namespace CalculatorOfCalories
                 {
                     name = Products.Text;
 
-                    //событие удаления
+                    delete.Invoke(this, null);
                 }
                 catch (Exception ex)
                 {

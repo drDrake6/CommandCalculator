@@ -59,6 +59,8 @@ namespace CalculatorOfCalories
 
             light.Source = new Uri("Resources/LightTheme.xaml", UriKind.Relative);
             dark.Source = new Uri("Resources/DarkTheme.xaml", UriKind.Relative);
+
+            Presenter presenter = new Presenter(this);
         }
 
         private void Mobility_Checked(object sender, RoutedEventArgs e)
@@ -94,7 +96,7 @@ namespace CalculatorOfCalories
             Effect = new BlurEffect();
 
             AddProduct addProduct = new AddProduct(Resources.MergedDictionaries[0]);
-            // вызов события добавления продукта
+            EventAddProduct.Invoke(addProduct, null);
             addProduct.Owner = this;
             addProduct.ShowDialog();
         }
@@ -103,20 +105,40 @@ namespace CalculatorOfCalories
         {
             Effect = new BlurEffect();
 
-            ChangeProduct addProduct = new ChangeProduct(Resources.MergedDictionaries[0]);
-            // вызов события изменения пробукта
-            addProduct.Owner = this;
-            addProduct.ShowDialog();
+            ChangeProduct changeProduct = new ChangeProduct(Resources.MergedDictionaries[0]);
+
+            try
+            {
+                EventChangeProduct.Invoke(changeProduct, null);
+                changeProduct.Owner = this;
+                changeProduct.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            Effect = null;
         }
 
         private void DeleteProduct_Click(object sender, RoutedEventArgs e)
         {
             Effect = new BlurEffect();
 
-            DaleteProduct addProduct = new DaleteProduct(Resources.MergedDictionaries[0]);
-            // вызов события удаления пробукта
-            addProduct.Owner = this;
-            addProduct.ShowDialog();
+            DaleteProduct deleteProduct = new DaleteProduct(Resources.MergedDictionaries[0]);
+
+            try
+            {
+                EventDeleteProduct.Invoke(deleteProduct, null);
+                deleteProduct.Owner = this;
+                deleteProduct.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            Effect = null;
         }
 
         private void AddDish_Click(object sender, RoutedEventArgs e)
