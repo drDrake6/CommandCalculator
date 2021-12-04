@@ -22,6 +22,7 @@ namespace CalculatorOfCalories
         private double calories;
 
         public double GetSetCalories { get => calories; set => calories = value; }
+        public ComboBox GetSetProducts { get => Dishes; set => Dishes = value; }
 
         public event EventHandler<EventArgs> add;
         public event EventHandler<EventArgs> choose;

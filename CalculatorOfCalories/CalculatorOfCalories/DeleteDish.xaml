@@ -9,7 +9,7 @@
         Title="Calories calculator" Height="100" Width="400" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" Icon="/Icon.png"
         Style="{DynamicResource ResourceKey=Theme}">
     <UniformGrid Columns="3">
-        <ComboBox VerticalAlignment="Center" Margin="10" Name="Products"
+        <ComboBox VerticalAlignment="Center" Margin="10" Name="Dishes"
                 Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
                      material:HintAssist.Hint="Name of dish" SelectionChanged="Products_SelectionChanged"/>
         <Button Content="Cancel" Margin="10" Name="Cancel" Click="Cancel_Click"/>

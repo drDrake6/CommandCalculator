@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CalculatorOfCalories"
         xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Calories calculator" Height="300" Width="600" WindowStartupLocation="CenterScreen" Icon="/Icon.png"
+        Title="Calories calculator" Height="400" Width="850" MinWidth="850" MinHeight="400" WindowStartupLocation="CenterScreen" Icon="/Icon.png"
         Style="{DynamicResource ResourceKey=Theme}">
     <Window.Resources>
         <ResourceDictionary>
@@ -19,42 +19,56 @@
     <UniformGrid Columns="2">
         <UniformGrid Columns="2">
             <UniformGrid Rows="3">
-                <Button Content="Add product" Name="AddProduct" Margin="10" Click="AddProduct_Click"/>
-                <Button Content="Change product" Name="ChangeProduct" Margin="10" Click="ChangeProduct_Click"/>
-                <Button Content="Delete Product" Name="DeleteProduct" Margin="10" Click="DeleteProduct_Click"/>
+                <Button Height="70" Content="Add product" Name="AddProduct" Margin="10" Click="AddProduct_Click"/>
+                <Button Height="70" Content="Change product" Name="ChangeProduct" Margin="10" Click="ChangeProduct_Click"/>
+                <Button Height="70" Content="Delete Product" Name="DeleteProduct" Margin="10" Click="DeleteProduct_Click"/>
             </UniformGrid>
 
             <UniformGrid Rows="3">
-                <Button Content="Add dish" Name="AddDish" Margin="10" Click="AddDish_Click"/>
-                <Button Content="Change dish" Name="ChangeDish" Margin="10" Click="ChangeDish_Click"/>
-                <Button Content="Delete dish" Name="DeleteDish" Margin="10" Click="DeleteDish_Click"/>
+                <Button Height="70" Content="Add dish" Name="AddDish" Margin="10" Click="AddDish_Click"/>
+                <Button Height="70" Content="Change dish" Name="ChangeDish" Margin="10" Click="ChangeDish_Click"/>
+                <Button Height="70" Content="Delete dish" Name="DeleteDish" Margin="10" Click="DeleteDish_Click"/>
             </UniformGrid>
         </UniformGrid>
         <UniformGrid Rows="3">
             <UniformGrid VerticalAlignment="Center" Columns="3">
-                <TextBlock Style="{DynamicResource ResourceKey=FontBlockColor}" HorizontalAlignment="Center" Text="Theme:"/>
-                <RadioButton Style="{DynamicResource ResourceKey=FontRadioColor}" IsChecked="True" VerticalContentAlignment="Center" Content="Light" Name="LightTheme" Checked="LightTheme_Checked"/>
-                <RadioButton Style="{DynamicResource ResourceKey=FontRadioColor}" VerticalContentAlignment="Center" Content="Dark" Name="DarkTheme" Checked="DarkTheme_Checked"/>
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Theme:"/>
+                <RadioButton IsChecked="True" VerticalContentAlignment="Center" Content="Light" Name="LightTheme" Checked="LightTheme_Checked"/>
+                <RadioButton VerticalContentAlignment="Center" Content="Dark" Name="DarkTheme" Checked="DarkTheme_Checked"/>
             </UniformGrid>
-            <UniformGrid Columns="2">
+            <UniformGrid Columns="4">
                 <UniformGrid Rows="4" HorizontalAlignment="Center">
-                    <TextBlock Style="{DynamicResource ResourceKey=FontBlockColor}" Text="Mobility"/>
-                    <RadioButton Style="{DynamicResource ResourceKey=FontRadioColor}" IsChecked="True" VerticalContentAlignment="Center" Content="Low" Name="LowMobility" Checked="Mobility_Checked"/>
-                    <RadioButton Style="{DynamicResource ResourceKey=FontRadioColor}" VerticalContentAlignment="Center" Content="Middle" Name="MiddleMobility" Checked="Mobility_Checked"/>
-                    <RadioButton Style="{DynamicResource ResourceKey=FontRadioColor}" VerticalContentAlignment="Center" Content="High" Name="HighMobility" Checked="Mobility_Checked"/>
+                    <TextBlock Style="{StaticResource MaterialDesignTextBlock}" Text="Mobility" HorizontalAlignment="Center"/>
+                    <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" IsChecked="True" VerticalContentAlignment="Center" Content="Low" Name="LowMobility" Checked="Mobility_Checked"/>
+                    <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" VerticalContentAlignment="Center" Content="Middle" Name="MiddleMobility" Checked="Mobility_Checked"/>
+                    <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" VerticalContentAlignment="Center" Content="High" Name="HighMobility" Checked="Mobility_Checked"/>
                 </UniformGrid>
                 <UniformGrid Rows="4" HorizontalAlignment="Center">
-                    <TextBlock Style="{DynamicResource ResourceKey=FontBlockColor}" Text="Criteries"/>
-                    <RadioButton Style="{DynamicResource ResourceKey=FontRadioColor}" IsChecked="True" VerticalContentAlignment="Center" Content="Weight reduction" Name="WeightReduction" Checked="Criteries_Checked"/>
-                    <RadioButton Style="{DynamicResource ResourceKey=FontRadioColor}" VerticalContentAlignment="Center" Content="Weight gain" Name="WeightGain" Checked="Criteries_Checked"/>
-                    <RadioButton Style="{DynamicResource ResourceKey=FontRadioColor}" VerticalContentAlignment="Center" Content="Weight retention" Name="WeightRetention" Checked="Criteries_Checked"/>
+                    <TextBlock Style="{StaticResource MaterialDesignTextBlock}" Text="Sex" HorizontalAlignment="Center"/>
+                    <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" IsChecked="True" VerticalContentAlignment="Center" Content="Male" Name="Male" Checked="Sex_Checked"/>
+                    <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" VerticalContentAlignment="Center" Content="Famale" Name="Famale" Checked="Sex_Checked"/>
                 </UniformGrid>
+                <UniformGrid Rows="3" HorizontalAlignment="Center" Margin="0,0,10,0">
+                    <TextBox Name="Weight"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         material:HintAssist.Hint="Weight in kg"/>
+                    <TextBox Name="Height"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         material:HintAssist.Hint="Height in meters"/>
+                    <TextBox Name="Age"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         material:HintAssist.Hint="Age"/>
+                </UniformGrid>
+                <DockPanel Margin="5,5,10,5">
+                    <TextBlock Style="{StaticResource MaterialDesignTextBlock}" DockPanel.Dock="Top" Text="Dishes" HorizontalAlignment="Center"/>
+                    <ListBox SelectionMode="Multiple" Name="Dishes"/>
+                </DockPanel>
             </UniformGrid>
             <UniformGrid Columns="2">
-                <Button Content="Count" Margin="10" Name="Count" Click="Count_Click"/>
-                <TextBox VerticalAlignment="Center" Margin="10,10,10,17" IsReadOnly="True"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                         material:HintAssist.Hint="Result"/>
+                <Button Height="70" Content="Count" Margin="10" Name="Count" Click="Count_Click"/>
+                <TextBox VerticalAlignment="Center" Margin="10" IsReadOnly="True"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         material:HintAssist.Hint="Result" Name="Result"/>
             </UniformGrid>
         </UniformGrid>
     </UniformGrid>
