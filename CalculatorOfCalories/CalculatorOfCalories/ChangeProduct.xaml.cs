@@ -29,6 +29,7 @@ namespace CalculatorOfCalories
         public string GetSetName { get => name; set => name = value; }
         public double GetSetClories { get => clories; set => clories = value; }
         public double GetSetMass { get => mass; set => mass = value; }
+        public ComboBox GetSetProducts { get => Products; set => Products = value; }
 
         public ChangeProduct(ResourceDictionary resourceDictionary)
         {
@@ -60,7 +61,7 @@ namespace CalculatorOfCalories
                 clories = Convert.ToDouble(Calories.Text);
                 mass = Convert.ToDouble(Mass.Text);
 
-                //событие изменения
+                //событие
             }
             catch (Exception ex)
             {
