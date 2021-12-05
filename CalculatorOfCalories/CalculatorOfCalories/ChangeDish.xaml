@@ -9,10 +9,13 @@
         Title="Calories calculator" Height="150" Width="400" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" Icon="/Icon.png" 
         Style="{DynamicResource ResourceKey=Theme}">
     <UniformGrid Rows="2">
-        <UniformGrid Columns="2">
+        <UniformGrid Columns="3">
             <ComboBox VerticalAlignment="Center" Margin="10" Name="Dishes"
                 Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
                      material:HintAssist.Hint="Name of dishes" SelectionChanged="Dishes_SelectionChanged"/>
+            <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Name"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                     material:HintAssist.Hint="Name"/>
             <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Calories"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                      material:HintAssist.Hint="Calories"/>

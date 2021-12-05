@@ -53,6 +53,7 @@ namespace CalculatorOfCalories
                     name = Products.Text;
 
                     delete.Invoke(this, new EventArgs());
+                    MessageBox.Show("Product was deleted", "", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {

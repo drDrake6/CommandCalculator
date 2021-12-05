@@ -22,22 +22,85 @@ namespace CalculatorOfCalories
             mainWindow.EventChangeProduct += new EventHandler<EventArgs>(ChangeProductFunction);
             mainWindow.EventDeleteProduct += new EventHandler<EventArgs>(DeleteProductFunction);
             mainWindow.EventAddDish += new EventHandler<EventArgs>(AddDishFunction);
+            mainWindow.EventDeleteDish += new EventHandler<EventArgs>(DeleteDishFunction);
+            mainWindow.EventChangeDish += new EventHandler<EventArgs>(ChangeDishFunction);
+            mainWindow.count += new EventHandler<EventArgs>(Count);
+        }
+
+        private void Count(object? sender, EventArgs e)
+        {
+            IList dishes = mainWindow.GetSetDishes.SelectedItems;
+
+            if (dishes.Count < 1)
+                throw new ApplicationException("Choose at leas one dish");
+
+            List<string> ration = new List<string>();
+            foreach (string dish in dishes)
+                ration.Add(dish);
+
+            double weight = mainWindow.GetSetWeight;
+            double height = mainWindow.GetSetHeight;
+            int age = mainWindow.GetSetAge;
+            uint mobility = mainWindow.GetSetMobility;
+            uint sex = mainWindow.GetSetSex;
+
+            double result = 0;
+
+            if (sex == 1)
+            {
+                switch (mobility)
+                {
+                    case 0:
+                        result = model.Calc(ration, weight, height, age, Sex.Male, ActivLevel.Minimal);
+                        break;
+                    case 1:
+                        result = model.Calc(ration, weight, height, age, Sex.Male, ActivLevel.Low);
+                        break;
+                    case 2:
+                        result = model.Calc(ration, weight, height, age, Sex.Male, ActivLevel.Middle);
+                        break;
+                    case 3:
+                        result = model.Calc(ration, weight, height, age, Sex.Male, ActivLevel.High);
+                        break;
+                    case 4:
+                        result = model.Calc(ration, weight, height, age, Sex.Male, ActivLevel.Extrime);
+                        break;
+                }
+            }
+            else if (sex == 0)
+            {
+                switch (mobility)
+                {
+                    case 0:
+                        result = model.Calc(ration, weight, height, age, Sex.Female, ActivLevel.Minimal);
+                        break;
+                    case 1:
+                        result = model.Calc(ration, weight, height, age, Sex.Female, ActivLevel.Low);
+                        break;
+                    case 2:
+                        result = model.Calc(ration, weight, height, age, Sex.Female, ActivLevel.Middle);
+                        break;
+                    case 3:
+                        result = model.Calc(ration, weight, height, age, Sex.Female, ActivLevel.High);
+                        break;
+                    case 4:
+                        result = model.Calc(ration, weight, height, age, Sex.Female, ActivLevel.Extrime);
+                        break;
+                }
+            }
+
+            mainWindow.GetSetResult = result;
         }
 
         private void AddProduct(string name, double calories, double mass)
         {
-            Product product = new Product();
-            product.Name = name;
-            product.CaloriesPer100Gramms = calories;
-            product.MassInKilo = mass;
-
+            Product product = new Product(calories, mass, name);
             model.AllProducts.Add(product);
         }
 
         private void AddDish(string name, List<Product> products)
         {
             Dish dish = new Dish(products, name);
-
             model.AllDishs.Add(dish);
         }
 
@@ -161,7 +224,7 @@ namespace CalculatorOfCalories
 
             AddDish? addDish = sender as AddDish;
             addDish.add += new EventHandler<EventArgs>(AddDishInBase);
-            addDish.choose += new EventHandler<EventArgs>(ChooseDish);
+            addDish.choose += new EventHandler<EventArgs>(ChooseProductForDish);
 
             foreach (Product product in model.AllProducts.GetListOfProducts())
                 addDish.GetSetProducts.Items.Add(product.Name);
@@ -187,7 +250,7 @@ namespace CalculatorOfCalories
             ChangeMainDishes();
         }
 
-        private void ChooseDish(object? sender, EventArgs e)
+        private void ChooseProductForDish(object? sender, EventArgs e)
         {
             AddDish? addDish = sender as AddDish;
 
@@ -208,6 +271,89 @@ namespace CalculatorOfCalories
 
             addDish.GetSetCalories = caloriesOfDish;
             
+        }
+        #endregion
+
+        #region ChangeDish
+        private void ChangeDishFunction(object? sender, EventArgs e)
+        {
+            model.AllDishs.CheckForEmpty();
+
+            ChangeDish? changeDish = sender as ChangeDish;
+            changeDish.change += new EventHandler<EventArgs>(ChangeDishInBase);
+            changeDish.choose += new EventHandler<EventArgs>(ChooseDishForChange);
+
+            foreach (Dish dish in model.AllDishs.GetListOfDishes())
+                changeDish.GetSetDishes.Items.Add(dish.Name);
+        }
+
+        private void ChangeDishInBase(object? sender, EventArgs e)
+        {
+            ChangeDish? changeDish = sender as ChangeDish;
+
+            string name = changeDish.GetSetName;
+
+            int index = changeDish.GetSetDishes.SelectedIndex;
+            List<Product> products = model.AllDishs[index].GetListOfProducts();
+            model.AllDishs.DeleteByIndex(index);
+
+            AddDish(name, products);
+
+            changeDish.GetSetDishes.Items.Clear();
+
+            foreach (Dish dish in model.AllDishs.GetListOfDishes())
+                changeDish.GetSetDishes.Items.Add(dish.Name);
+
+            changeDish.GetSetDishes.SelectedIndex = 0;
+        }
+
+        private void ChooseDishForChange(object? sender, EventArgs e)
+        {
+            ChangeDish? changeDish = sender as ChangeDish;
+
+            int index = changeDish.GetSetDishes.SelectedIndex;
+
+            if (index >= 0)
+            {
+                string name = model.AllDishs[index].Name;
+                double calories = model.AllDishs[index].CalcCalories();
+
+                changeDish.GetSetName = name;
+                changeDish.GetSetCalories = calories;
+            }
+        }
+        #endregion
+
+        #region DeleteDish
+        private void DeleteDishFunction(object? sender, EventArgs e)
+        {
+            model.AllDishs.CheckForEmpty();
+
+            DeleteDish? deleteDish = sender as DeleteDish;
+            deleteDish.delete += new EventHandler<EventArgs>(DeleteDishImBase);
+
+            foreach (Dish dish in model.AllDishs.GetListOfDishes())
+                deleteDish.GetSetDishes.Items.Add(dish.Name);
+        }
+
+        private void DeleteDishImBase(object? sender, EventArgs e)
+        {
+            DeleteDish? deleteDish = sender as DeleteDish;
+
+            int index = deleteDish.GetSetDishes.SelectedIndex;
+            model.AllDishs.DeleteByIndex(index);
+
+            ChangeMainDishes();
+
+            if (model.AllDishs.GetListOfDishes().Count < 1)
+            {
+                deleteDish.Close();
+                return;
+            }
+
+            deleteDish.GetSetDishes.Items.Clear();
+            foreach (Product product in model.AllProducts.GetListOfProducts())
+                deleteDish.GetSetDishes.Items.Add(product.Name);
         }
         #endregion
     }

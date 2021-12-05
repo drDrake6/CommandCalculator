@@ -15,7 +15,7 @@
                      material:HintAssist.Hint="Name of product" SelectionChanged="Products_SelectionChanged"/>
             <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Name"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                     material:HintAssist.Hint="Name of product"/>
+                     material:HintAssist.Hint="Name"/>
             <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Calories"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                      material:HintAssist.Hint="Calories"/>

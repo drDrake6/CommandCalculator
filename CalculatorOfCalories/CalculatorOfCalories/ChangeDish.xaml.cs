@@ -19,12 +19,14 @@ namespace CalculatorOfCalories
     /// </summary>
     public partial class ChangeDish : Window
     {
+        private string name;
         private double calories;
 
+        public string GetSetName { get => name; set => name = value; }
         public double GetSetCalories { get => calories; set => calories = value; }
-        public ComboBox GetSetProducts { get => Dishes; set => Dishes = value; }
+        public ComboBox GetSetDishes { get => Dishes; set => Dishes = value; }
 
-        public event EventHandler<EventArgs> add;
+        public event EventHandler<EventArgs> change;
         public event EventHandler<EventArgs> choose;
 
         public ChangeDish(ResourceDictionary resourceDictionary)
@@ -35,25 +37,28 @@ namespace CalculatorOfCalories
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            Owner.Effect = null;
             Close();
         }
 
         private void Dishes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Calories.IsEnabled = true;
+            Name.IsEnabled = true;
             Change.IsEnabled = true;
 
-            // событие выбора
+            choose.Invoke(this, new EventArgs());
+
+            Name.Text = name;
+            Calories.Text = calories.ToString();
         }
 
         private void Change_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                calories = Convert.ToDouble(Calories.Text);
+                name = Name.Text;
 
-                // событие измения
+                change.Invoke(this, new EventArgs());
+                MessageBox.Show("Product was edit", "", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {

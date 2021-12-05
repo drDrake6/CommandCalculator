@@ -37,14 +37,16 @@
                 <RadioButton VerticalContentAlignment="Center" Content="Dark" Name="DarkTheme" Checked="DarkTheme_Checked"/>
             </UniformGrid>
             <UniformGrid Columns="4">
-                <UniformGrid Rows="4" HorizontalAlignment="Center">
-                    <TextBlock Style="{StaticResource MaterialDesignTextBlock}" Text="Mobility" HorizontalAlignment="Center"/>
+                <UniformGrid Rows="6" Margin="10,0,10,0">
+                    <TextBlock Style="{StaticResource MaterialDesignTextBlock}" Text="Mobility" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" IsChecked="True" VerticalContentAlignment="Center" Content="Minimal" Name="MinimalMobility" Checked="Mobility_Checked"/>
                     <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" IsChecked="True" VerticalContentAlignment="Center" Content="Low" Name="LowMobility" Checked="Mobility_Checked"/>
                     <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" VerticalContentAlignment="Center" Content="Middle" Name="MiddleMobility" Checked="Mobility_Checked"/>
                     <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" VerticalContentAlignment="Center" Content="High" Name="HighMobility" Checked="Mobility_Checked"/>
+                    <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" VerticalContentAlignment="Center" Content="Extrim" Name="ExtrimMobility" Checked="Mobility_Checked"/>
                 </UniformGrid>
-                <UniformGrid Rows="4" HorizontalAlignment="Center">
-                    <TextBlock Style="{StaticResource MaterialDesignTextBlock}" Text="Sex" HorizontalAlignment="Center"/>
+                <UniformGrid Rows="4" Margin="10,0,10,0">
+                    <TextBlock Style="{StaticResource MaterialDesignTextBlock}" Text="Sex" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" IsChecked="True" VerticalContentAlignment="Center" Content="Male" Name="Male" Checked="Sex_Checked"/>
                     <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" VerticalContentAlignment="Center" Content="Famale" Name="Famale" Checked="Sex_Checked"/>
                 </UniformGrid>
@@ -54,7 +56,7 @@
                          material:HintAssist.Hint="Weight in kg"/>
                     <TextBox Name="Height"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         material:HintAssist.Hint="Height in meters"/>
+                         material:HintAssist.Hint="Height in sm"/>
                     <TextBox Name="Age"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          material:HintAssist.Hint="Age"/>

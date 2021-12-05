@@ -15,6 +15,21 @@ namespace CalculatorOfCalories
             private double calories_per_100_gramms;
             private double mass;
 
+            public Product(double calories)
+            {
+                this.calories_per_100_gramms = calories;
+            }
+
+            public Product(double calories, double mass) : this(calories)
+            {
+                this.mass = mass;
+            }
+
+            public Product(double calories, double mass, string name) : this(calories, mass)
+            {
+                this.name = name;
+            }
+
             public string Name
             {
                 get { return name; }

@@ -21,10 +21,10 @@ namespace CalculatorOfCalories
     {
         private string name;
 
-        event EventHandler<EventArgs> deletel;
+        public event EventHandler<EventArgs> delete;
 
         public string GetSetName { get => name; set => name = value; }
-        public ComboBox GetSetProducts { get => Dishes; set => Dishes = value; }
+        public ComboBox GetSetDishes { get => Dishes; set => Dishes = value; }
 
         public DeleteDish(ResourceDictionary resourceDictionary)
         {
@@ -39,7 +39,6 @@ namespace CalculatorOfCalories
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            Owner.Effect = null;
             Close();
         }
 
@@ -53,7 +52,8 @@ namespace CalculatorOfCalories
                 {
                     name = Dishes.Text;
 
-                    //событие удалени
+                    delete.Invoke(this, new EventArgs());
+                    MessageBox.Show("Dish was deleted", "", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {

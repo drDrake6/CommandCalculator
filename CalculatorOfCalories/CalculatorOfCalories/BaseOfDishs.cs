@@ -99,6 +99,12 @@ namespace CalculatorOfCalories
                 }
             }
 
+            public void CheckForEmpty()
+            {
+                if (dishs.Count < 1)
+                    throw new ApplicationException("No dishes");
+            }
+
             public double GetCaloriesByName(string name)
             {
                 return FindByName(name).CalcCalories();

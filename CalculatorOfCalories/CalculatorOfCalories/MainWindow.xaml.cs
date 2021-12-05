@@ -22,8 +22,8 @@ namespace CalculatorOfCalories
     /// </summary>
     public partial class MainWindow : Window
     {
-        enum Mobility { Low = 1, Middle = 2, High = 3 };
-        enum Sex { Male = 1, Famale = 2 };
+        private enum Mobility { Minimal = 0, Low = 1, Middle = 2, High = 3, Extrime = 4 };
+        private enum Sex { Male = 1, Famale = 0 };
 
         private ResourceDictionary light = new ResourceDictionary();
         private ResourceDictionary dark = new ResourceDictionary();
@@ -33,7 +33,7 @@ namespace CalculatorOfCalories
         private uint sex;
         private double weight;
         private double height;
-        private double age;
+        private int age;
 
         public event EventHandler<EventArgs> count;
 
@@ -46,11 +46,11 @@ namespace CalculatorOfCalories
         public event EventHandler<EventArgs> EventDeleteDish;
 
         public uint GetSetMobility { get => mobility; set => mobility = value; }
-        public double SetSetResult { get => result; set => result = value; }
+        public double GetSetResult { get => result; set => result = value; }
         public uint GetSetSex { get => sex; set => sex = value; }
         public double GetSetWeight { get => weight; set => weight = value; }
         public double GetSetHeight { get => height; set => height = value; }
-        public double GetSetAge { get => age; set => age = value; }
+        public int GetSetAge { get => age; set => age = value; }
         public ListBox GetSetDishes { get => Dishes; set => Dishes = value; }
 
         public MainWindow()
@@ -65,20 +65,24 @@ namespace CalculatorOfCalories
 
         private void Mobility_Checked(object sender, RoutedEventArgs e)
         {
-            if (LowMobility.IsChecked == true)
+            if (MinimalMobility.IsChecked == true)
+                mobility = (uint)Mobility.Minimal;
+            else if (LowMobility.IsChecked == true)
                 mobility = (uint)Mobility.Low;
             else if (MiddleMobility.IsChecked == true)
                 mobility = (uint)Mobility.Middle;
             else if (HighMobility.IsChecked == true)
                 mobility = (uint)Mobility.High;
+            else if (ExtrimMobility.IsChecked == true)
+                mobility = (uint)Mobility.Extrime;
         }
 
         private void Sex_Checked(object sender, RoutedEventArgs e)
         {
             if (Male.IsChecked == true)
-                mobility = (uint)Sex.Male;
+                sex = (uint)Sex.Male;
             else if (Famale.IsChecked == true)
-                mobility = (uint)Sex.Famale;
+                sex = (uint)Sex.Famale;
         }
 
         private void LightTheme_Checked(object sender, RoutedEventArgs e)
@@ -165,20 +169,40 @@ namespace CalculatorOfCalories
         {
             Effect = new BlurEffect();
 
-            ChangeDish addProduct = new ChangeDish(Resources.MergedDictionaries[0]);
-            // вызов события добавления блюда
-            addProduct.Owner = this;
-            addProduct.ShowDialog();
+            ChangeDish changeDish = new ChangeDish(Resources.MergedDictionaries[0]);
+
+            try
+            {
+                EventChangeDish.Invoke(changeDish, new EventArgs());
+                changeDish.Owner = this;
+                changeDish.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            Effect = null;
         }
 
         private void DeleteDish_Click(object sender, RoutedEventArgs e)
         {
             Effect = new BlurEffect();
 
-            DeleteDish addProduct = new DeleteDish(Resources.MergedDictionaries[0]);
-            // вызов события добавления блюда
-            addProduct.Owner = this;
-            addProduct.ShowDialog();
+            DeleteDish deleteDish = new DeleteDish(Resources.MergedDictionaries[0]);
+            
+            try
+            {
+                EventDeleteDish.Invoke(deleteDish, new EventArgs());
+                deleteDish.Owner = this;
+                deleteDish.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            Effect = null;
         }
 
         private void Count_Click(object sender, RoutedEventArgs e)
@@ -187,15 +211,12 @@ namespace CalculatorOfCalories
             {
                 weight = Convert.ToDouble(Weight.Text);
                 height = Convert.ToDouble(Height.Text);
-                age = Convert.ToDouble(Age.Text);
+                age = Convert.ToInt32(Age.Text);
 
-                // это должно быть в презентере
-                //List<string> list = new List<string>();
-                //IList dishes = Dishes.SelectedItems;
-                //foreach (string dish in dishes)
-                //    list.Add(dish);
+                count.Invoke(sender, new EventArgs());
+                Result.Text = result.ToString();
 
-                //событе подсчёта
+                MessageBox.Show("Calculate was succesfully", "", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
