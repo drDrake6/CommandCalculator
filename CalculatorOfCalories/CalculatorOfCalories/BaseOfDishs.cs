@@ -1,13 +1,18 @@
 ﻿using System;
+using System.Windows;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization.Json;
+using System.IO;
+
 
 namespace CalculatorOfCalories
 {
     namespace Logic
     {
+        [Serializable]
         class BaseOfDishs
         {
             private List<Dish> dishs;
@@ -110,6 +115,42 @@ namespace CalculatorOfCalories
             public double GetCaloriesByName(string name)
             {
                 return FindByName(name).CalcCalories();
+            }
+
+            public void Save()
+            {
+                FileStream stream = new FileStream("../../dishs.json", FileMode.Create);
+                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<Dish>));
+                jsonFormatter.WriteObject(stream, dishs);
+                stream.Close();
+                Console.WriteLine("Сохранено!");
+            }
+
+            public void Load()
+            {
+                FileStream stream = null;
+
+                try
+                {
+                    stream = new FileStream("../../dishs.json", FileMode.Open);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message + "\n" + e.StackTrace);
+                    stream.Close();
+                    return;
+                }
+                
+                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<Dish>));
+                dishs = (List<Dish>)jsonFormatter.ReadObject(stream);
+                string s = String.Empty;
+                foreach (Dish d in dishs)
+                {
+                    s += d.Name + '\n';
+                }
+                Console.WriteLine(s);
+                Console.WriteLine("Загружено!");
+                stream.Close();
             }
         }
     }

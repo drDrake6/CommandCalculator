@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization.Json;
+using System.IO;
+using System.Windows;
 
 namespace CalculatorOfCalories
 {
     namespace Logic
     {
+        [Serializable]
         class BaseOfProducts
         {
             private List<Product> products;
@@ -105,6 +109,42 @@ namespace CalculatorOfCalories
             {
                 if (products.Count < 1)
                     throw new ApplicationException("No products");
+            }
+
+            public void Save()
+            {
+                FileStream stream = new FileStream("../../products.json", FileMode.Create);
+                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<Product>));
+                jsonFormatter.WriteObject(stream, products);
+                stream.Close();
+                Console.WriteLine("Сохранено!");
+            }
+
+            public void Load()
+            {
+                FileStream stream = null;
+
+                try
+                {
+                    stream = new FileStream("../../products.json", FileMode.Open);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message + "\n" + e.StackTrace);
+                    stream.Close();
+                    return;
+                }
+
+                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<Product>));
+                products = (List<Product>)jsonFormatter.ReadObject(stream);
+                string s = String.Empty;
+                foreach (Product p in products)
+                {
+                    s += p.Name + '\n';
+                }
+                Console.WriteLine(s);
+                Console.WriteLine("Загружено!");
+                stream.Close();
             }
         }
     }
