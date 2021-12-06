@@ -20,7 +20,7 @@
                      material:HintAssist.Hint="Name of dish"/>
                 <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Calories"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                     material:HintAssist.Hint="Calories"/>
+                     material:HintAssist.Hint="Dish's calories"/>
                 <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="MassOfProduct"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                      material:HintAssist.Hint="Product's mass"/>
@@ -28,7 +28,7 @@
         </UniformGrid>
         <UniformGrid Rows="3">
             <Button IsEnabled="False" Content="Add dish" Margin="10" Name="Add" Click="Add_Click"/>
-            <Button IsEnabled="False" Content="Add product" Margin="10" Name="AddProduct"/>
+            <Button IsEnabled="False" Content="Add product" Margin="10" Name="AddProduct" Click="AddProduct_Click"/>
             <Button Content="Cancel" Margin="10" Name="Cancel" Click="Cancel_Click"/>
         </UniformGrid>
     </UniformGrid>

@@ -30,6 +30,8 @@ namespace CalculatorOfCalories
                 this.name = name;
             }
 
+            public Product() { }
+
             public string Name
             {
                 get { return name; }

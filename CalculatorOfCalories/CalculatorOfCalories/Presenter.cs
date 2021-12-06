@@ -53,7 +53,11 @@ namespace CalculatorOfCalories
 
         private void AddProduct(string name, double calories, double mass)
         {
-            Product product = new Product(calories, mass, name);
+            Product product = new Product();
+            product.Name = name;
+            product.MassInKilo = mass;
+            product.CaloriesPer100Gramms = calories;
+
             model.AllProducts.Add(product);
         }
 
@@ -201,14 +205,23 @@ namespace CalculatorOfCalories
             model.AllProducts.CheckForEmpty();
 
             AddDish? addDish = sender as AddDish;
-            addDish.add += new EventHandler<EventArgs>(AddDishInBase);
+            addDish.add += new EventHandler<EventArgs>(AddProductForDishInBase);
+            addDish.addProduct += new EventHandler<EventArgs>(AddProductForDishInBasez);
             addDish.choose += new EventHandler<EventArgs>(ChooseProductForDish);
 
             foreach (Product product in model.AllProducts.GetListOfProducts())
                 addDish.GetSetProducts.Items.Add(product.Name);
         }
 
-        private void AddDishInBase(object? sender, EventArgs e)
+        private void AddProductForDishInBasez(object? sender, EventArgs e)
+        {
+            AddDish? addDish = sender as AddDish;
+
+            double calories = addDish.GetSetProductsInDish[addDish.GetSetNameOfProduct];
+            addDish.GetSetCalories += calories;
+        }
+
+        private void AddProductForDishInBase(object? sender, EventArgs e)
         {
             AddDish? addDish = sender as AddDish;
             
@@ -217,14 +230,14 @@ namespace CalculatorOfCalories
 
             model.AllDishs.CheckToExistsDisht(name);
 
-            IList products = addDish.GetSetProducts.SelectedItems;
+            SortedList<string, double> products = addDish.GetSetProductsInDish;
             List<Product> productsForDish = new List<Product>();
 
-            foreach (string product in products)
-                productsForDish.Add(model.AllProducts.FindByName(product));
+            foreach (KeyValuePair<string, double> product in products)
+                productsForDish.Add(model.AllProducts.FindByName(product.Key).CloneWithNewMass(product.Value));
 
             AddDish(name, productsForDish);
-
+            addDish.GetSetProductsInDish.Clear();
             ChangeMainDishes();
         }
 
@@ -234,23 +247,8 @@ namespace CalculatorOfCalories
 
             int index = addDish.GetSetProducts.SelectedIndex;
 
-            IList products = addDish.GetSetProducts.SelectedItems;
-
-            double caloriesOfDish = 0;
-            foreach (string name in products)
-            {
-                foreach (Product product in model.AllProducts.GetListOfProducts())
-                {
-                    if (product.Name == name)
-                    {
-                        caloriesOfDish += product.CaloriesPer100Gramms;
-                        break;
-                    }
-                }
-            }
-
-            addDish.GetSetCalories = caloriesOfDish;
-            
+            Product product = model.AllProducts[index];
+            addDish.GetSetMass = product.MassInKilo;           
         }
         #endregion
 
@@ -287,10 +285,14 @@ namespace CalculatorOfCalories
             ChangeDish? changeDish = sender as ChangeDish;
 
             string name = changeDish.GetSetName;
+            double mass = changeDish.GetSetMassOfProduct;
 
-            int index = changeDish.GetSetDishes.SelectedIndex;
-            List<Product> products = model.AllDishs[index].GetListOfProducts();
-            model.AllDishs.DeleteByIndex(index);
+            int dishIndex = changeDish.GetSetDishes.SelectedIndex;
+            int productIndex = changeDish.GetSetProducts.SelectedIndex;
+            List<Product> products = model.AllDishs[dishIndex].GetListOfProducts();
+            products[productIndex].MassInKilo = mass;
+
+            model.AllDishs.DeleteByIndex(dishIndex);
 
             AddDish(name, products);
 
@@ -300,6 +302,7 @@ namespace CalculatorOfCalories
                 changeDish.GetSetDishes.Items.Add(dish.Name);
 
             changeDish.GetSetDishes.SelectedIndex = 0;
+            changeDish.GetSetProducts.SelectedIndex = 0;
         }
 
         private void ChooseDishForChange(object? sender, EventArgs e)
@@ -321,6 +324,8 @@ namespace CalculatorOfCalories
 
                 foreach (Product product in model.AllDishs[index].GetListOfProducts())
                     changeDish.GetSetProducts.Items.Add(product.Name);
+
+                changeDish.GetSetProducts.SelectedIndex = 0;
             }
         }
         #endregion

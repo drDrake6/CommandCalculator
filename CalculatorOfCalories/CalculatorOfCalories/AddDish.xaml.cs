@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -23,13 +24,18 @@ namespace CalculatorOfCalories
         private string name;
         private double calories = 0;
         private double mass = 0;
+        private string nameOfProduct;
+        private SortedList<string, double> productsInDish = new SortedList<string, double>();
 
         public string GetSetName { get => name; set => name = value; }
         public double GetSetCalories { get => calories; set => calories = value; }
         public double GetSetMass { get => mass; set => mass = value; }
+        public string GetSetNameOfProduct { get => nameOfProduct; set => nameOfProduct = value; }
         public ListBox GetSetProducts { get => Products; set => Products = value; }
+        public SortedList<string, double> GetSetProductsInDish { get => productsInDish; set => productsInDish = value; }
 
         public event EventHandler<EventArgs> add;
+        public event EventHandler<EventArgs> addProduct;
         public event EventHandler<EventArgs> choose;
 
         public AddDish(ResourceDictionary resourceDictionary)
@@ -45,8 +51,6 @@ namespace CalculatorOfCalories
 
             Name.Text = null;
             Calories.Text = null;
-
-            Products.SelectedIndex = -1;
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -58,10 +62,12 @@ namespace CalculatorOfCalories
         {
             Name.IsEnabled = true;
             Add.IsEnabled = true;
+            AddProduct.IsEnabled = true;
+            MassOfProduct.IsEnabled = true;
 
             choose.Invoke(this, new EventArgs());
 
-            Calories.Text = calories.ToString();
+            MassOfProduct.Text = mass.ToString();
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
@@ -87,6 +93,32 @@ namespace CalculatorOfCalories
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void AddProduct_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                mass = Convert.ToDouble(MassOfProduct.Text);
+            }
+            catch (Exception)
+            {
+                mass = double.Parse(MassOfProduct.Text, NumberFormatInfo.InvariantInfo);
+            }
+
+            try
+            { 
+                string product = (string)Products.SelectedItem;
+                nameOfProduct = product;
+
+                productsInDish.Add(product, mass);
+                addProduct.Invoke(this, new EventArgs());
+                Calories.Text = calories.ToString();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("The product already exists", "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
