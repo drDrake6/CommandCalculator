@@ -261,9 +261,48 @@ namespace CalculatorOfCalories
             changeDish.change += new EventHandler<EventArgs>(ChangeDishInBase);
             changeDish.choose += new EventHandler<EventArgs>(ChooseDishForChange);
             changeDish.chooseProduct += new EventHandler<EventArgs>(ChooseProductOfDishForChange);
+            changeDish.deleteProduct += new EventHandler<EventArgs>(DeleteProduct);
+            changeDish.selectNewProduct += new EventHandler<EventArgs>(SelectNewProduct);
+            changeDish.addNewProduct += new EventHandler<EventArgs>(AddNewProduct);
 
             foreach (Dish dish in model.AllDishs.GetListOfDishes())
                 changeDish.GetSetDishes.Items.Add(dish.Name);
+
+            foreach (Product product in model.AllProducts.GetListOfProducts())
+                changeDish.GetSetNewProducts.Items.Add(product.Name);
+        }
+
+        private void AddNewProduct(object? sender, EventArgs e)
+        {
+            ChangeDish? changeDish = sender as ChangeDish;
+
+            int dishIndex = changeDish.GetSetDishes.SelectedIndex;
+            string newName = changeDish.GetSetNameOfNewProduct;
+            double newMass = changeDish.GetSetMassOfNewProduct;
+
+            foreach (Product productInDish in model.AllDishs[dishIndex].GetListOfProducts())
+            {
+                if (productInDish.Name == newName)
+                    throw new ApplicationException("The product already exists");
+            } 
+
+            model.AllDishs[dishIndex].Add(model.AllProducts.FindByName(newName).CloneWithNewMass(newMass));
+
+            changeDish.GetSetCalories = model.AllDishs[dishIndex].CalcCalories();
+
+            changeDish.GetSetProducts.Items.Clear();
+            foreach (Product productInDish in model.AllDishs[dishIndex].GetListOfProducts())
+                changeDish.GetSetProducts.Items.Add(productInDish.Name);
+
+            changeDish.GetSetProducts.SelectedIndex = 0;
+        }
+
+        private void SelectNewProduct(object? sender, EventArgs e)
+        {
+            ChangeDish? changeDish = sender as ChangeDish;
+
+            Product product = model.AllProducts[changeDish.GetSetNewProducts.SelectedIndex];
+            changeDish.GetSetMassOfNewProduct = product.MassInKilo;
         }
 
         private void ChooseProductOfDishForChange(object? sender, EventArgs e)
@@ -278,6 +317,27 @@ namespace CalculatorOfCalories
                 double mass = model.AllDishs[indexOfDish].GetListOfProducts()[indexOfProduct].MassInKilo;
                 changeDish.GetSetMassOfProduct = mass;
             }
+        }
+
+        private void DeleteProduct(object? sender, EventArgs e)
+        {
+            ChangeDish? changeDish = sender as ChangeDish;
+
+            int dishIndex = changeDish.GetSetDishes.SelectedIndex;
+            int productIndex = changeDish.GetSetProducts.SelectedIndex;
+
+            if (model.AllDishs[dishIndex].GetListOfProducts().Count < 2)
+                throw new ArgumentException("Impossible remove last product");
+
+            model.AllDishs[dishIndex].DeleteByIndex(productIndex);
+
+            changeDish.GetSetCalories = model.AllDishs[dishIndex].CalcCalories();
+
+            changeDish.GetSetProducts.Items.Clear();
+            foreach (Product product in model.AllDishs[dishIndex].GetListOfProducts())
+                changeDish.GetSetProducts.Items.Add(product.Name);
+
+            changeDish.GetSetProducts.SelectedIndex = 0;
         }
 
         private void ChangeDishInBase(object? sender, EventArgs e)
@@ -319,9 +379,7 @@ namespace CalculatorOfCalories
                 changeDish.GetSetName = name;
                 changeDish.GetSetCalories = calories;
 
-                if (changeDish.GetSetProducts.Items.Count != 0)
-                    changeDish.GetSetProducts.Items.Clear();
-
+                changeDish.GetSetProducts.Items.Clear();
                 foreach (Product product in model.AllDishs[index].GetListOfProducts())
                     changeDish.GetSetProducts.Items.Add(product.Name);
 

@@ -59,27 +59,32 @@ namespace CalculatorOfCalories
 
         private void Change_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                name = Name.Text;
+            MessageBoxResult result = MessageBox.Show("Do you really want to change this product", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
+            if (result == MessageBoxResult.Yes)
+            {
                 try
                 {
-                    calories = Convert.ToDouble(Calories.Text);
-                    mass = Convert.ToDouble(Mass.Text);
-                }
-                catch (Exception)
-                {
-                    calories = double.Parse(Calories.Text, NumberFormatInfo.InvariantInfo);
-                    mass = double.Parse(Mass.Text, NumberFormatInfo.InvariantInfo);
-                }
+                    name = Name.Text;
 
-                change.Invoke(this, new EventArgs());
-                MessageBox.Show("Product was edit", "", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+                    try
+                    {
+                        calories = Convert.ToDouble(Calories.Text);
+                        mass = Convert.ToDouble(Mass.Text);
+                    }
+                    catch (Exception)
+                    {
+                        calories = double.Parse(Calories.Text, NumberFormatInfo.InvariantInfo);
+                        mass = double.Parse(Mass.Text, NumberFormatInfo.InvariantInfo);
+                    }
+
+                    change.Invoke(this, new EventArgs());
+                    MessageBox.Show("Product was edit", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }

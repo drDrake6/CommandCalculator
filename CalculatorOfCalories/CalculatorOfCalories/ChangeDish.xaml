@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:CalculatorOfCalories"
         xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Calories calculator" Height="150" Width="600" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" Icon="/Icon.png" 
+        Title="Calories calculator" Height="300" Width="600" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" Icon="/Icon.png" 
         Style="{DynamicResource ResourceKey=Theme}">
-    <UniformGrid Rows="2">
-        <UniformGrid Columns="5">
+    <UniformGrid Rows="4">
+        <UniformGrid Columns="3">
             <ComboBox VerticalAlignment="Center" Margin="10" Name="Dishes"
                 Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
                      material:HintAssist.Hint="Name of dishes" SelectionChanged="Dishes_SelectionChanged"/>
@@ -19,12 +19,24 @@
             <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Calories"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                      material:HintAssist.Hint="Calories"/>
+        </UniformGrid>
+        <UniformGrid Columns="3">
             <ComboBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Products"
                 Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
                      material:HintAssist.Hint="Dish's products" SelectionChanged="Products_SelectionChanged"/>
             <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Mass"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                      material:HintAssist.Hint="Product's mass"/>
+            <Button IsEnabled="False" Content="Delete product" Margin="10" Name="Delete" Click="Delete_Click"/>
+        </UniformGrid>
+        <UniformGrid Columns="4">
+            <ComboBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="newProducts"
+                Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
+                     material:HintAssist.Hint="New products" SelectionChanged="newProducts_SelectionChanged"/>
+            <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="productMass"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                     material:HintAssist.Hint="Product's mass"/>
+            <Button IsEnabled="False" Content="Add product" Margin="10" Name="Add" Click="Add_Click"/>
         </UniformGrid>
         <UniformGrid Columns="2">
             <Button Content="Cancel" Margin="10" Name="Cancel" Click="Cancel_Click"/>

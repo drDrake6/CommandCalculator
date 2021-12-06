@@ -21,18 +21,26 @@ namespace CalculatorOfCalories
     public partial class ChangeDish : Window
     {
         private string name;
+        private string nameOfNewProduct;
         private double calories;
         private double massOfProduct;
+        private double massOfNewProduct;
 
+        public string GetSetNameOfNewProduct { get => nameOfNewProduct; set => nameOfNewProduct = value; }
         public string GetSetName { get => name; set => name = value; }
         public double GetSetCalories { get => calories; set => calories = value; }
         public double GetSetMassOfProduct { get => massOfProduct; set => massOfProduct = value; }
+        public double GetSetMassOfNewProduct { get => massOfNewProduct; set => massOfNewProduct = value; }
         public ComboBox GetSetDishes { get => Dishes; set => Dishes = value; }
         public ComboBox GetSetProducts { get => Products; set => Products = value; }
+        public ComboBox GetSetNewProducts { get => newProducts; set => newProducts = value; }
 
         public event EventHandler<EventArgs> change;
         public event EventHandler<EventArgs> choose;
         public event EventHandler<EventArgs> chooseProduct;
+        public event EventHandler<EventArgs> deleteProduct;
+        public event EventHandler<EventArgs> selectNewProduct;
+        public event EventHandler<EventArgs> addNewProduct;
 
         public ChangeDish(ResourceDictionary resourceDictionary)
         {
@@ -50,6 +58,7 @@ namespace CalculatorOfCalories
             Name.IsEnabled = true;
             Change.IsEnabled = true;
             Products.IsEnabled = true;
+            newProducts.IsEnabled = true;
 
             choose.Invoke(this, new EventArgs());
 
@@ -60,33 +69,93 @@ namespace CalculatorOfCalories
         private void Products_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Mass.IsEnabled = true;
+            Delete.IsEnabled = true;
 
             chooseProduct.Invoke(this, new EventArgs());
 
             Mass.Text = massOfProduct.ToString();
         }
 
-        private void Change_Click(object sender, RoutedEventArgs e)
+        private void newProducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Add.IsEnabled = true;
+            productMass.IsEnabled = true;
+
+            selectNewProduct.Invoke(this, new EventArgs());
+
+            productMass.Text = massOfNewProduct.ToString();
+        }
+
+        private void Add_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                name = Name.Text;
+                nameOfNewProduct = newProducts.Text;
 
                 try
                 {
-                    massOfProduct = Convert.ToDouble(Mass.Text);
+                    massOfNewProduct = Convert.ToDouble(productMass.Text);
                 }
                 catch (Exception)
                 {
-                    massOfProduct = double.Parse(Mass.Text, NumberFormatInfo.InvariantInfo);
+                    massOfNewProduct = double.Parse(productMass.Text, NumberFormatInfo.InvariantInfo);
                 }
 
-                change.Invoke(this, new EventArgs());
-                MessageBox.Show("Product was edit", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                addNewProduct.Invoke(this, new EventArgs());
+                Calories.Text = calories.ToString();
+                MessageBox.Show("Product was added", "", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void Change_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Do you really want to change this product", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    name = Name.Text;
+
+                    try
+                    {
+                        massOfProduct = Convert.ToDouble(Mass.Text);
+                    }
+                    catch (Exception)
+                    {
+                        massOfProduct = double.Parse(Mass.Text, NumberFormatInfo.InvariantInfo);
+                    }
+
+                    change.Invoke(this, new EventArgs());
+                    MessageBox.Show("Dish was edit", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Do you really want to delete this dish", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    deleteProduct.Invoke(this, new EventArgs());
+                    Calories.Text = calories.ToString();
+                    MessageBox.Show("Product was delete from dish", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }
