@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,8 +58,17 @@ namespace CalculatorOfCalories
             try
             {
                 name = Name.Text;
-                clories = Convert.ToDouble(Calories.Text);
-                mass = Convert.ToDouble(Mass.Text);
+
+                try
+                {
+                    clories = Convert.ToDouble(Calories.Text);
+                    mass = Convert.ToDouble(Mass.Text);
+                }
+                catch (Exception)
+                {
+                    clories = double.Parse(Calories.Text, NumberFormatInfo.InvariantInfo);
+                    mass = double.Parse(Mass.Text, NumberFormatInfo.InvariantInfo);
+                }
 
                 add.Invoke(this, new EventArgs());
 

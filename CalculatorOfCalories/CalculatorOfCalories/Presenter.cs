@@ -46,48 +46,7 @@ namespace CalculatorOfCalories
 
             double result = 0;
 
-            if (sex == 1)
-            {
-                switch (mobility)
-                {
-                    case 0:
-                        result = model.Calc(ration, weight, height, age, Sex.Male, ActivLevel.Minimal);
-                        break;
-                    case 1:
-                        result = model.Calc(ration, weight, height, age, Sex.Male, ActivLevel.Low);
-                        break;
-                    case 2:
-                        result = model.Calc(ration, weight, height, age, Sex.Male, ActivLevel.Middle);
-                        break;
-                    case 3:
-                        result = model.Calc(ration, weight, height, age, Sex.Male, ActivLevel.High);
-                        break;
-                    case 4:
-                        result = model.Calc(ration, weight, height, age, Sex.Male, ActivLevel.Extrime);
-                        break;
-                }
-            }
-            else if (sex == 0)
-            {
-                switch (mobility)
-                {
-                    case 0:
-                        result = model.Calc(ration, weight, height, age, Sex.Female, ActivLevel.Minimal);
-                        break;
-                    case 1:
-                        result = model.Calc(ration, weight, height, age, Sex.Female, ActivLevel.Low);
-                        break;
-                    case 2:
-                        result = model.Calc(ration, weight, height, age, Sex.Female, ActivLevel.Middle);
-                        break;
-                    case 3:
-                        result = model.Calc(ration, weight, height, age, Sex.Female, ActivLevel.High);
-                        break;
-                    case 4:
-                        result = model.Calc(ration, weight, height, age, Sex.Female, ActivLevel.Extrime);
-                        break;
-                }
-            }
+            result = model.Calc(ration, weight, height, age, (Sex)mainWindow.GetSetSex, (ActivLevel)mainWindow.GetSetMobility);
 
             mainWindow.GetSetResult = result;
         }
@@ -146,6 +105,25 @@ namespace CalculatorOfCalories
                 changeProduct.GetSetProducts.Items.Add(product.Name);
         }
 
+        private void ChangeProductInDish(int index, string name, double calories, double mass)
+        {
+            foreach (Dish dish in model.AllDishs.GetListOfDishes())
+            {
+                foreach (Product product in dish.GetListOfProducts())
+                {
+                    if (model.AllProducts[index].Name == product.Name)
+                    {
+                        dish.Delete(product);
+                        Product newProduct = new Product(calories, mass, name);
+
+                        dish.Add(newProduct);
+
+                        return;
+                    }
+                }
+            }
+        }
+
         private void ChooseProduct(object? sender, EventArgs e)
         {
             ChangeProduct? changeProduct = sender as ChangeProduct;
@@ -173,8 +151,8 @@ namespace CalculatorOfCalories
             double mass = changeProduct.GetSetMass;
 
             int index = changeProduct.GetSetProducts.SelectedIndex;
+            ChangeProductInDish(index, name, calories, mass);
             model.AllProducts.DeleteByIndex(index);
-
             AddProduct(name, calories, mass);
 
             changeProduct.GetSetProducts.Items.Clear();
@@ -236,6 +214,7 @@ namespace CalculatorOfCalories
             
             string name = addDish.GetSetName;
             double calories = addDish.GetSetCalories;
+            double mass = addDish.GetSetMass;
 
             model.AllDishs.CheckToExistsDisht(name);
 
@@ -243,7 +222,7 @@ namespace CalculatorOfCalories
             List<Product> productsForDish = new List<Product>();
 
             foreach (string product in products)
-                productsForDish.Add(model.AllProducts.FindByName(product));
+                productsForDish.Add(model.AllProducts.FindByName(product).CloneWithNewMass(mass));
 
             AddDish(name, productsForDish);
 
@@ -253,6 +232,14 @@ namespace CalculatorOfCalories
         private void ChooseProductForDish(object? sender, EventArgs e)
         {
             AddDish? addDish = sender as AddDish;
+
+            int index = addDish.GetSetProducts.SelectedIndex;
+
+            if (index >= 0)
+            {
+                double mass = model.AllProducts[index].MassInKilo;
+                addDish.GetSetMass = mass;
+            }
 
             IList products = addDish.GetSetProducts.SelectedItems;
 

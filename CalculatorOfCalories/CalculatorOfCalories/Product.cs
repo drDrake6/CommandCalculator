@@ -75,6 +75,11 @@ namespace CalculatorOfCalories
             {
                 return mass * calories_per_100_gramms * 10;
             }
+
+            public Product CloneWithNewMass(double mass_in_kilo)
+            {
+                return new Product(calories_per_100_gramms, mass_in_kilo, name);
+            }
         }
     }
 }

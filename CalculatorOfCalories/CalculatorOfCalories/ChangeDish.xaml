@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:CalculatorOfCalories"
         xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Calories calculator" Height="150" Width="400" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" Icon="/Icon.png" 
+        Title="Calories calculator" Height="150" Width="600" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" Icon="/Icon.png" 
         Style="{DynamicResource ResourceKey=Theme}">
     <UniformGrid Rows="2">
-        <UniformGrid Columns="3">
+        <UniformGrid Columns="5">
             <ComboBox VerticalAlignment="Center" Margin="10" Name="Dishes"
                 Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
                      material:HintAssist.Hint="Name of dishes" SelectionChanged="Dishes_SelectionChanged"/>
@@ -19,6 +19,12 @@
             <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Calories"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                      material:HintAssist.Hint="Calories"/>
+            <ComboBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Products"
+                Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
+                     material:HintAssist.Hint="Dish's products"/>
+            <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Mass"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                     material:HintAssist.Hint="Mass"/>
         </UniformGrid>
         <UniformGrid Columns="2">
             <Button Content="Cancel" Margin="10" Name="Cancel" Click="Cancel_Click"/>

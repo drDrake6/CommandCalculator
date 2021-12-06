@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CalculatorOfCalories"
         xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Calories calculator" Height="150" Width="500" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" Icon="/Icon.png" 
+        Title="Calories calculator" Height="200" Width="500" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" Icon="/Icon.png" 
         Style="{DynamicResource ResourceKey=Theme}">
     <UniformGrid Columns="2">
         <UniformGrid Columns="2">
@@ -14,10 +14,13 @@
                 <TextBlock DockPanel.Dock="Top" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Products" Margin="0,0,0,5"/>
                 <ListBox Name="Products" SelectionMode="Multiple" BorderThickness="0" SelectionChanged="Products_SelectionChanged"/>
             </DockPanel>
-            <UniformGrid Rows="2">
+            <UniformGrid Rows="3">
             <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Name"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                      material:HintAssist.Hint="Name of dish"/>
+                <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Mass"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                     material:HintAssist.Hint="Mass"/>
             <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Calories"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                      material:HintAssist.Hint="Calories"/>

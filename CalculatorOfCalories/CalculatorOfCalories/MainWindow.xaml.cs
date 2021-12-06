@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -209,9 +210,18 @@ namespace CalculatorOfCalories
         {
             try
             {
-                weight = Convert.ToDouble(Weight.Text);
-                height = Convert.ToDouble(Height.Text);
                 age = Convert.ToInt32(Age.Text);
+
+                try
+                {
+                    weight = Convert.ToDouble(Weight.Text);
+                    height = Convert.ToDouble(Height.Text);
+                }
+                catch (Exception)
+                {
+                    weight = double.Parse(Weight.Text, NumberFormatInfo.InvariantInfo);
+                    height = double.Parse(Height.Text, NumberFormatInfo.InvariantInfo);
+                }
 
                 count.Invoke(sender, new EventArgs());
                 Result.Text = result.ToString();

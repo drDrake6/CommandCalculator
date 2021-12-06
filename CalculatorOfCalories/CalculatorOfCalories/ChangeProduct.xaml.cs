@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,8 +62,17 @@ namespace CalculatorOfCalories
             try
             {
                 name = Name.Text;
-                calories = Convert.ToDouble(Calories.Text);
-                mass = Convert.ToDouble(Mass.Text);
+
+                try
+                {
+                    calories = Convert.ToDouble(Calories.Text);
+                    mass = Convert.ToDouble(Mass.Text);
+                }
+                catch (Exception)
+                {
+                    calories = double.Parse(Calories.Text, NumberFormatInfo.InvariantInfo);
+                    mass = double.Parse(Mass.Text, NumberFormatInfo.InvariantInfo);
+                }
 
                 change.Invoke(this, new EventArgs());
                 MessageBox.Show("Product was edit", "", MessageBoxButton.OK, MessageBoxImage.Information);
