@@ -21,10 +21,10 @@
                      material:HintAssist.Hint="Calories"/>
             <ComboBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Products"
                 Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
-                     material:HintAssist.Hint="Dish's products"/>
+                     material:HintAssist.Hint="Dish's products" SelectionChanged="Products_SelectionChanged"/>
             <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Mass"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                     material:HintAssist.Hint="Mass"/>
+                     material:HintAssist.Hint="Product's mass"/>
         </UniformGrid>
         <UniformGrid Columns="2">
             <Button Content="Cancel" Margin="10" Name="Cancel" Click="Cancel_Click"/>

@@ -57,11 +57,13 @@ namespace CalculatorOfCalories
             public void Delete(Product product)
             {
                 products.Remove(product);
+                products.Sort();
             }
 
             public void DeleteByIndex(int index)
             {
                 products.RemoveAt(index);
+                products.Sort();
             }
 
             public int GetIndex(Product product)

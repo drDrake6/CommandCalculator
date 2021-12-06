@@ -71,21 +71,30 @@ namespace CalculatorOfCalories
             public void Add(Product product)
             {
                 products.Add(product);
+                products.Sort();
             }
 
             public void Delete(Product product)
             {
                 products.Remove(product);
+                products.Sort();
             }
 
             public void DeleteByIndex(int index)
             {
                 products.RemoveAt(index);
+                products.Sort();
             }
 
             public int GetIndex(Product product)
             {
                 return products.IndexOf(product);
+            }
+
+            public void CheckForNoProducts()
+            {
+                if (products.Count == 0)
+                    throw new ApplicationException("Add at least on product");
             }
 
             public List<Product> GetListOfProducts()

@@ -28,6 +28,7 @@ namespace CalculatorOfCalories
         public double GetSetCalories { get => calories; set => calories = value; }
         public double GetSetMassOfProduct { get => massOfProduct; set => massOfProduct = value; }
         public ComboBox GetSetDishes { get => Dishes; set => Dishes = value; }
+        public ComboBox GetSetProducts { get => Products; set => Products = value; }
 
         public event EventHandler<EventArgs> change;
         public event EventHandler<EventArgs> choose;
@@ -49,12 +50,20 @@ namespace CalculatorOfCalories
             Name.IsEnabled = true;
             Change.IsEnabled = true;
             Products.IsEnabled = true;
-            Mass.IsEnabled = true;
 
             choose.Invoke(this, new EventArgs());
 
             Name.Text = name;
             Calories.Text = calories.ToString();
+        }
+
+        private void Products_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Mass.IsEnabled = true;
+
+            chooseProduct.Invoke(this, new EventArgs());
+
+            Mass.Text = massOfProduct.ToString();
         }
 
         private void Change_Click(object sender, RoutedEventArgs e)
