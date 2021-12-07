@@ -23,6 +23,8 @@ namespace CalculatorOfCalories
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly Presenter presenter;
+
         private enum Mobility { Minimal = 0, Low = 1, Middle = 2, High = 3, Extrime = 4 };
         private enum Sex { Male = 1, Famale = 0 };
 
@@ -61,7 +63,7 @@ namespace CalculatorOfCalories
             light.Source = new Uri("Resources/LightTheme.xaml", UriKind.Relative);
             dark.Source = new Uri("Resources/DarkTheme.xaml", UriKind.Relative);
 
-            Presenter presenter = new Presenter(this);
+            presenter = new Presenter(this);
         }
 
         private void Mobility_Checked(object sender, RoutedEventArgs e)
@@ -232,6 +234,11 @@ namespace CalculatorOfCalories
             {
                 MessageBox.Show(ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            presenter.Dispose();
         }
     }
 }

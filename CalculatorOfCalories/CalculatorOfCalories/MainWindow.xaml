@@ -7,7 +7,7 @@
         xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="Calories calculator" Height="400" Width="900" MinWidth="900" MinHeight="400" WindowStartupLocation="CenterScreen" Icon="/Icon.png"
-        Style="{DynamicResource ResourceKey=Theme}">
+        Style="{DynamicResource ResourceKey=Theme}" Closing="Window_Closing">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

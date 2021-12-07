@@ -10,7 +10,7 @@ using NLog;
 
 namespace CalculatorOfCalories
 {
-    internal class Presenter
+    internal class Presenter : IDisposable
     {
         private readonly Model model = new Model();
         private MainWindow? mainWindow = null;
@@ -18,6 +18,8 @@ namespace CalculatorOfCalories
 
         public Presenter(MainWindow mainWindow)
         {
+            Deserialization();
+
             this.mainWindow = mainWindow;
 
             mainWindow.EventAddProduct += new EventHandler<EventArgs>(AddProductFunction);
@@ -29,6 +31,26 @@ namespace CalculatorOfCalories
             mainWindow.count += new EventHandler<EventArgs>(Count);
 
             logger.Info("Application was run");
+        }
+
+        private void Deserialization()
+        {
+            model.AllProducts.Load();
+            model.AllDishs.Load();
+        } 
+
+        private void Serialization()
+        {
+            if (model.AllProducts.GetListOfProducts().Count > 0)
+                model.AllProducts.Save();
+
+            if (model.AllDishs.GetListOfDishes().Count > 0)
+                model.AllDishs.Save();
+        }
+
+        public void Dispose()
+        {
+            Serialization();
         }
 
         private void Count(object? sender, EventArgs e)

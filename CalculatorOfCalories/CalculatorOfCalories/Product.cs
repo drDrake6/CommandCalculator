@@ -9,6 +9,7 @@ namespace CalculatorOfCalories
     namespace Logic
     {
 
+        [Serializable]
         class Product : IComparable<Product>
         {
             private string name;

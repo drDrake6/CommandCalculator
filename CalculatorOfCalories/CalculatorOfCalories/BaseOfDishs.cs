@@ -136,8 +136,7 @@ namespace CalculatorOfCalories
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(e.Message + "\n" + e.StackTrace);
-                    stream.Close();
+                    stream?.Close();
                     return;
                 }
                 

@@ -8,6 +8,7 @@ namespace CalculatorOfCalories
 {
     namespace Logic
     {
+        [Serializable]
         class Dish : IComparable<Dish>
         {
             private List<Product> products;
