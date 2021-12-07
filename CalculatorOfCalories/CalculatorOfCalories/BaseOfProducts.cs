@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Runtime.Serialization.Json;
 using System.IO;
 using System.Windows;
+using NLog;
 
 namespace CalculatorOfCalories
 {
@@ -96,12 +97,15 @@ namespace CalculatorOfCalories
                 throw new ApplicationException("Product are not axists");
             }
 
-            public void CheckToExistsProduct(string name)
+            public void CheckToExistsProduct(string name, Logger logger)
             {
                 foreach (Product item in products)
                 {
                     if (item.Name == name)
+                    {
+                        logger.Error("Product \"" + name + "\" with the same name already axists");
                         throw new ApplicationException("Product with the same name already axists");
+                    }
                 }
             }
 

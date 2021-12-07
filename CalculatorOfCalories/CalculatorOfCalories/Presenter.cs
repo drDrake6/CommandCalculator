@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using CalculatorOfCalories.Logic;
+using NLog;
 
 namespace CalculatorOfCalories
 {
@@ -13,6 +14,7 @@ namespace CalculatorOfCalories
     {
         private readonly Model model = new Model();
         private MainWindow? mainWindow = null;
+        private readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         public Presenter(MainWindow mainWindow)
         {
@@ -25,6 +27,8 @@ namespace CalculatorOfCalories
             mainWindow.EventDeleteDish += new EventHandler<EventArgs>(DeleteDishFunction);
             mainWindow.EventChangeDish += new EventHandler<EventArgs>(ChangeDishFunction);
             mainWindow.count += new EventHandler<EventArgs>(Count);
+
+            logger.Info("Application was run");
         }
 
         private void Count(object? sender, EventArgs e)
@@ -32,7 +36,10 @@ namespace CalculatorOfCalories
             IList dishes = mainWindow.GetSetDishes.SelectedItems;
 
             if (dishes.Count < 1)
+            {
+                logger.Error("Application was run");
                 throw new ApplicationException("Choose at leas one dish");
+            }
 
             List<string> ration = new List<string>();
             foreach (string dish in dishes)
@@ -49,6 +56,7 @@ namespace CalculatorOfCalories
             result = model.Calc(ration, weight, height, age, (Sex)mainWindow.GetSetSex, (ActivLevel)mainWindow.GetSetMobility);
 
             mainWindow.GetSetResult = result;
+            logger.Info("Calculate was succesfully");
         }
 
         private void AddProduct(string name, double calories, double mass)
@@ -65,6 +73,12 @@ namespace CalculatorOfCalories
         {
             Dish dish = new Dish(products, name);
             model.AllDishs.Add(dish);
+            string str = "Dish \"" + dish.Name + "\" was edded. Products:";
+
+            foreach (Product product in products)
+                str += " " + product.Name;
+
+            logger.Info(str);
         }
 
         private void ChangeMainDishes()
@@ -90,9 +104,10 @@ namespace CalculatorOfCalories
             double calories = addProduct.GetSetClories;
             double mass = addProduct.GetSetMass;
 
-            model.AllProducts.CheckToExistsProduct(name);
+            model.AllProducts.CheckToExistsProduct(name, logger);
 
             AddProduct(name, calories, mass);
+            logger.Info("Product \"" + name + "\" " + calories + "(calories) " + mass + "(kg)" + " was edded");
         }
         #endregion
 
@@ -122,6 +137,8 @@ namespace CalculatorOfCalories
 
                         dish.Add(newProduct);
 
+                        logger.Info("Product \"" + product.Name + "\" " + product.CaloriesPer100Gramms + "(calories) " + product.MassInKilo + "(kg)" + " was changed in dish \"" + dish.Name + "\" to "
+                             + newProduct.Name + "\" " + newProduct.CaloriesPer100Gramms + "(calories) " + newProduct.MassInKilo + "(kg)");
                         return;
                     }
                 }
@@ -159,6 +176,9 @@ namespace CalculatorOfCalories
             model.AllProducts.DeleteByIndex(index);
             AddProduct(name, calories, mass);
 
+            logger.Info("Prduct \"" + model.AllProducts[index].Name + "\" " + model.AllProducts[index].CaloriesPer100Gramms + "(calories) " + model.AllProducts[index].MassInKilo + "(kg)"
+                + " was changed to \"" + name + "\" " + calories + "(calories) " + mass + "(kg)");
+
             changeProduct.GetSetProducts.Items.Clear();
 
             foreach (Product product in model.AllProducts.GetListOfProducts())
@@ -186,10 +206,12 @@ namespace CalculatorOfCalories
 
             int index = deleteProduct.GetSetProducts.SelectedIndex;
             model.AllProducts.DeleteByIndex(index);
+            logger.Info("Prduct \"" + model.AllProducts[index].Name + "\" was deleted");
 
             if (model.AllProducts.GetListOfProducts().Count < 1)
             {
                 deleteProduct.Close();
+                logger.Info("Last product \"" + model.AllProducts[index].Name + "\" was deleted");
                 return;
             }
 
@@ -287,6 +309,8 @@ namespace CalculatorOfCalories
             } 
 
             model.AllDishs[dishIndex].Add(model.AllProducts.FindByName(newName).CloneWithNewMass(newMass));
+            logger.Info("Product \"" + newName + "\" " + newMass + "(calories) " + model.AllProducts.FindByName(newName).MassInKilo + "(kg)" + 
+                " was edded to dish \"" + model.AllDishs[dishIndex].Name + "\"");
 
             changeDish.GetSetCalories = model.AllDishs[dishIndex].CalcCalories();
 
@@ -330,6 +354,8 @@ namespace CalculatorOfCalories
                 throw new ArgumentException("Impossible remove last product");
 
             model.AllDishs[dishIndex].DeleteByIndex(productIndex);
+            logger.Info("Product \"" + model.AllDishs[dishIndex].GetListOfProducts()[productIndex].Name + "\" " 
+                + " was deleted in dish \"" + model.AllDishs[dishIndex].Name + "\"");
 
             changeDish.GetSetCalories = model.AllDishs[dishIndex].CalcCalories();
 
@@ -353,8 +379,16 @@ namespace CalculatorOfCalories
             products[productIndex].MassInKilo = mass;
 
             model.AllDishs.DeleteByIndex(dishIndex);
-
             AddDish(name, products);
+
+            double calories = 0;
+            foreach (Product product in model.AllDishs[dishIndex].GetListOfProducts())
+                calories += product.CaloriesPer100Gramms;
+
+            string str = "Dish \"" + model.AllDishs[dishIndex].Name + "\" " + model.AllDishs[dishIndex].CalcCalories() + "(calories)"
+                + " was changed in \n\t Dish \"" + name + "\" " + calories + "(calories)";
+
+            logger.Info(str);
 
             changeDish.GetSetDishes.Items.Clear();
 
@@ -406,12 +440,14 @@ namespace CalculatorOfCalories
 
             int index = deleteDish.GetSetDishes.SelectedIndex;
             model.AllDishs.DeleteByIndex(index);
+            logger.Info("Dish \"" + model.AllProducts[index].Name + "\" was deleted");
 
             ChangeMainDishes();
 
             if (model.AllDishs.GetListOfDishes().Count < 1)
             {
                 deleteDish.Close();
+                logger.Info("Last dish \"" + model.AllProducts[index].Name + "\" was deleted");
                 return;
             }
 

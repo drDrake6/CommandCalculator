@@ -14,10 +14,17 @@
   <ItemGroup>
     <PackageReference Include="MaterialDesignColors" Version="2.0.4" />
     <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
+    <PackageReference Include="NLog" Version="4.7.13" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="C:\Users\coffe\.nuget\packages\nlog.config\4.7.13\contentFiles\any\any\NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
