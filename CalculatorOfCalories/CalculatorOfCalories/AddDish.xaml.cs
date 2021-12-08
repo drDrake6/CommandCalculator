@@ -61,7 +61,6 @@ namespace CalculatorOfCalories
         private void Products_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Name.IsEnabled = true;
-            Add.IsEnabled = true;
             AddProduct.IsEnabled = true;
             MassOfProduct.IsEnabled = true;
 
@@ -119,6 +118,28 @@ namespace CalculatorOfCalories
             catch (Exception)
             {
                 MessageBox.Show("The product already exists", "", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void CheckTextName(object sender, TextChangedEventArgs e)
+        {
+            if (Name.Text.Length > 0)
+            {
+                if (Regular.CheckName(Name.Text))
+                    Add.IsEnabled = true;
+                else
+                    Add.IsEnabled = false;
+            }
+        }
+
+        private void CheckTextMass(object sender, TextChangedEventArgs e)
+        {
+            if (MassOfProduct.Text.Length > 0)
+            {
+                if (Regular.CheckNumeric(MassOfProduct.Text))
+                    AddProduct.IsEnabled = true;
+                else
+                    AddProduct.IsEnabled = false;
             }
         }
     }

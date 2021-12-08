@@ -240,5 +240,18 @@ namespace CalculatorOfCalories
         {
             presenter.Dispose();
         }
+
+        private void CheckText(object sender, TextChangedEventArgs e)
+        {
+            if (Weight.Text.Length > 0 && Height.Text.Length > 0 && Age.Text.Length > 0)
+            {
+                if (Regular.CheckNumeric(Weight.Text) 
+                    && Regular.CheckNumeric(Height.Text) 
+                    && Regular.CheckNumericWithoutDot(Age.Text))
+                    Count.IsEnabled = true;
+                else
+                    Count.IsEnabled = false;
+            }
+        }
     }
 }

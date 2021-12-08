@@ -17,13 +17,13 @@
             <UniformGrid Rows="3">
                 <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Name"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                     material:HintAssist.Hint="Name of dish"/>
+                     material:HintAssist.Hint="Name of dish" TextChanged="CheckTextName"/>
                 <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Calories"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                      material:HintAssist.Hint="Dish's calories"/>
                 <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="MassOfProduct"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                     material:HintAssist.Hint="Product's mass"/>
+                     material:HintAssist.Hint="Product's mass" TextChanged="CheckTextMass"/>
             </UniformGrid>
         </UniformGrid>
         <UniformGrid Rows="3">

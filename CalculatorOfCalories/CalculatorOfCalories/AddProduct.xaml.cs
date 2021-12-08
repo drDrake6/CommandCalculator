@@ -80,5 +80,18 @@ namespace CalculatorOfCalories
                 MessageBox.Show(ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        private void CheckText(object sender, TextChangedEventArgs e)
+        {
+            if (Name.Text.Length > 0 && Calories.Text.Length > 0 && Mass.Text.Length > 0)
+            {
+                if (Regular.CheckName(Name.Text)
+                    && Regular.CheckNumeric(Calories.Text)
+                    && Regular.CheckNumeric(Mass.Text))
+                    Add.IsEnabled = true;
+                else
+                    Add.IsEnabled = false;
+            }
+        }
     }
 }

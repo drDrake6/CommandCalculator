@@ -53,13 +53,13 @@
                 <UniformGrid Rows="3" HorizontalAlignment="Center" Margin="0,0,10,0">
                     <TextBox Name="Weight"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         material:HintAssist.Hint="Weight in kg"/>
+                         material:HintAssist.Hint="Weight in kg" TextChanged="CheckText"/>
                     <TextBox Name="Height"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         material:HintAssist.Hint="Height in sm"/>
+                         material:HintAssist.Hint="Height in sm" TextChanged="CheckText"/>
                     <TextBox Name="Age"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         material:HintAssist.Hint="Age"/>
+                         material:HintAssist.Hint="Age" TextChanged="CheckText"/>
                 </UniformGrid>
                 <DockPanel Margin="5,5,10,5">
                     <TextBlock Style="{StaticResource MaterialDesignTextBlock}" DockPanel.Dock="Top" Text="Dishes" HorizontalAlignment="Center"/>
@@ -67,7 +67,7 @@
                 </DockPanel>
             </UniformGrid>
             <UniformGrid Columns="2">
-                <Button Height="70" Content="Count" Margin="10" Name="Count" Click="Count_Click"/>
+                <Button IsEnabled="False" Height="70" Content="Count" Margin="10" Name="Count" Click="Count_Click"/>
                 <TextBox VerticalAlignment="Center" Margin="10" IsReadOnly="True"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          material:HintAssist.Hint="Result in calories" Name="Result"/>

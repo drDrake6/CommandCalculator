@@ -48,7 +48,6 @@ namespace CalculatorOfCalories
             Name.IsEnabled = true;
             Calories.IsEnabled = true;
             Mass.IsEnabled = true;
-            Change.IsEnabled = true;
 
             choose.Invoke(this, new EventArgs());
 
@@ -85,6 +84,19 @@ namespace CalculatorOfCalories
                 {
                     MessageBox.Show(ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+            }
+        }
+
+        private void CheckText(object sender, TextChangedEventArgs e)
+        {
+            if (Name.Text.Length > 0 && Calories.Text.Length > 0 && Mass.Text.Length > 0)
+            {
+                if (Regular.CheckName(Name.Text)
+                    && Regular.CheckNumeric(Calories.Text)
+                    && Regular.CheckNumeric(Mass.Text))
+                    Change.IsEnabled = true;
+                else
+                    Change.IsEnabled = false;
             }
         }
     }

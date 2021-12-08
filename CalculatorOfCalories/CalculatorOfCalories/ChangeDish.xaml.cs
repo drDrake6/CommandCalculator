@@ -56,7 +56,6 @@ namespace CalculatorOfCalories
         private void Dishes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Name.IsEnabled = true;
-            Change.IsEnabled = true;
             Products.IsEnabled = true;
             newProducts.IsEnabled = true;
 
@@ -156,6 +155,29 @@ namespace CalculatorOfCalories
                 {
                     MessageBox.Show(ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+            }
+        }
+
+        private void CheckText(object sender, TextChangedEventArgs e)
+        {
+            if (Name.Text.Length > 0 && Mass.Text.Length > 0)
+            {
+                if (Regular.CheckName(Name.Text)
+                    && Regular.CheckNumeric(Mass.Text))
+                    Change.IsEnabled = true;
+                else
+                    Change.IsEnabled = false;
+            }
+        }
+
+        private void CheckTextForNewProduct(object sender, TextChangedEventArgs e)
+        {
+            if (productMass.Text.Length > 0)
+            {
+                if (Regular.CheckNumeric(productMass.Text))
+                    Add.IsEnabled = true;
+                else
+                    Add.IsEnabled = false;
             }
         }
     }

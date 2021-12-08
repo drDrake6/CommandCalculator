@@ -18,9 +18,8 @@ namespace CalculatorOfCalories
 
         public Presenter(MainWindow mainWindow)
         {
-            Deserialization();
-
             this.mainWindow = mainWindow;
+            Deserialization();
 
             mainWindow.EventAddProduct += new EventHandler<EventArgs>(AddProductFunction);
             mainWindow.EventChangeProduct += new EventHandler<EventArgs>(ChangeProductFunction);
@@ -37,15 +36,14 @@ namespace CalculatorOfCalories
         {
             model.AllProducts.Load();
             model.AllDishs.Load();
+
+            ChangeMainDishes();
         } 
 
         private void Serialization()
         {
-            if (model.AllProducts.GetListOfProducts().Count > 0)
-                model.AllProducts.Save();
-
-            if (model.AllDishs.GetListOfDishes().Count > 0)
-                model.AllDishs.Save();
+            model.AllProducts.Save();
+            model.AllDishs.Save();
         }
 
         public void Dispose()
@@ -105,10 +103,11 @@ namespace CalculatorOfCalories
 
         private void ChangeMainDishes()
         {
-            mainWindow.GetSetDishes.Items.Clear();
+            if (mainWindow.GetSetDishes.Items.Count > 0)
+                mainWindow.GetSetDishes.Items.Clear();
 
-            foreach (Dish product in model.AllDishs.GetListOfDishes())
-                mainWindow.GetSetDishes.Items.Add(product.Name);
+            foreach (Dish dish in model.AllDishs.GetListOfDishes())
+                mainWindow.GetSetDishes.Items.Add(dish.Name);
         }
 
         #region AddProduct
@@ -227,19 +226,23 @@ namespace CalculatorOfCalories
             DaleteProduct? deleteProduct = sender as DaleteProduct;
 
             int index = deleteProduct.GetSetProducts.SelectedIndex;
-            model.AllProducts.DeleteByIndex(index);
-            logger.Info("Prduct \"" + model.AllProducts[index].Name + "\" was deleted");
 
-            if (model.AllProducts.GetListOfProducts().Count < 1)
+            logger.Info("Prduct \"" + model.AllProducts[index].Name + "\" was deleted");
+            if (model.AllProducts.GetListOfProducts().Count == 1)
             {
-                deleteProduct.Close();
                 logger.Info("Last product \"" + model.AllProducts[index].Name + "\" was deleted");
+                model.AllProducts.DeleteByIndex(index);
+                deleteProduct.Close();
                 return;
             }
+
+            model.AllProducts.DeleteByIndex(index);
 
             deleteProduct.GetSetProducts.Items.Clear();
             foreach (Product product in model.AllProducts.GetListOfProducts())
                 deleteProduct.GetSetProducts.Items.Add(product.Name);
+
+            deleteProduct.GetSetProducts.SelectedIndex = 0;
         }
         #endregion
 
@@ -461,21 +464,25 @@ namespace CalculatorOfCalories
             DeleteDish? deleteDish = sender as DeleteDish;
 
             int index = deleteDish.GetSetDishes.SelectedIndex;
-            model.AllDishs.DeleteByIndex(index);
-            logger.Info("Dish \"" + model.AllProducts[index].Name + "\" was deleted");
 
-            ChangeMainDishes();
-
-            if (model.AllDishs.GetListOfDishes().Count < 1)
+            logger.Info("Dish \"" + model.AllDishs[index].Name + "\" was deleted");
+            if (model.AllDishs.GetListOfDishes().Count == 1)
             {
+                logger.Info("Last dish \"" + model.AllDishs[index].Name + "\" was deleted");
+                model.AllDishs.DeleteByIndex(index);
+                ChangeMainDishes();
                 deleteDish.Close();
-                logger.Info("Last dish \"" + model.AllProducts[index].Name + "\" was deleted");
                 return;
             }
 
+            model.AllDishs.DeleteByIndex(index);
+            ChangeMainDishes();
+
             deleteDish.GetSetDishes.Items.Clear();
-            foreach (Product product in model.AllProducts.GetListOfProducts())
-                deleteDish.GetSetDishes.Items.Add(product.Name);
+            foreach (Dish dish in model.AllDishs.GetListOfDishes())
+                deleteDish.GetSetDishes.Items.Add(dish.Name);
+
+            deleteDish.GetSetDishes.SelectedIndex = 0;
         }
         #endregion
     }

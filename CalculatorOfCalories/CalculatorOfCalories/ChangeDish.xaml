@@ -15,7 +15,7 @@
                      material:HintAssist.Hint="Name of dishes" SelectionChanged="Dishes_SelectionChanged"/>
             <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Name"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                     material:HintAssist.Hint="Name"/>
+                     material:HintAssist.Hint="Name" TextChanged="CheckText"/>
             <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Calories"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                      material:HintAssist.Hint="Calories"/>
@@ -26,7 +26,7 @@
                      material:HintAssist.Hint="Dish's products" SelectionChanged="Products_SelectionChanged"/>
             <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Mass"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                     material:HintAssist.Hint="Product's mass"/>
+                     material:HintAssist.Hint="Product's mass" TextChanged="CheckText"/>
             <Button IsEnabled="False" Content="Delete product" Margin="10" Name="Delete" Click="Delete_Click"/>
         </UniformGrid>
         <UniformGrid Columns="4">
@@ -35,7 +35,7 @@
                      material:HintAssist.Hint="New products" SelectionChanged="newProducts_SelectionChanged"/>
             <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="productMass"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                     material:HintAssist.Hint="Product's mass"/>
+                     material:HintAssist.Hint="Product's mass" TextChanged="CheckTextForNewProduct"/>
             <Button IsEnabled="False" Content="Add product" Margin="10" Name="Add" Click="Add_Click"/>
         </UniformGrid>
         <UniformGrid Columns="2">

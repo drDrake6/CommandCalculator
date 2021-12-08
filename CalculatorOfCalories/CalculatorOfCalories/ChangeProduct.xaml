@@ -15,13 +15,13 @@
                      material:HintAssist.Hint="Name of product" SelectionChanged="Products_SelectionChanged"/>
             <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Name"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                     material:HintAssist.Hint="Name"/>
+                     material:HintAssist.Hint="Name" TextChanged="CheckText"/>
             <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Calories"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                     material:HintAssist.Hint="Calories (1 per 100 g)"/>
+                     material:HintAssist.Hint="Calories (1 per 100 g)" TextChanged="CheckText"/>
             <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Mass"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                     material:HintAssist.Hint="Mass"/>
+                     material:HintAssist.Hint="Mass" TextChanged="CheckText"/>
         </UniformGrid>
         <UniformGrid Columns="2">
             <Button Content="Cancel" Margin="10" Name="Cancel" Click="Cancel_Click" />
