@@ -51,6 +51,9 @@ namespace CalculatorOfCalories
 
             Name.Text = null;
             Calories.Text = null;
+
+            Add.IsEnabled = false;
+            Products.SelectedIndex = 0;
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -97,6 +100,8 @@ namespace CalculatorOfCalories
 
         private void AddProduct_Click(object sender, RoutedEventArgs e)
         {
+            Add.IsEnabled = true;
+
             try
             {
                 mass = Convert.ToDouble(MassOfProduct.Text);
@@ -112,23 +117,12 @@ namespace CalculatorOfCalories
                 nameOfProduct = product;
 
                 productsInDish.Add(product, mass);
-                addProduct.Invoke(this, new EventArgs());
+                addProduct.Invoke(this, new EventArgs()); 
                 Calories.Text = calories.ToString();
             }
             catch (Exception)
             {
                 MessageBox.Show("The product already exists", "", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void CheckTextName(object sender, TextChangedEventArgs e)
-        {
-            if (Name.Text.Length > 0)
-            {
-                if (Regular.CheckName(Name.Text))
-                    Add.IsEnabled = true;
-                else
-                    Add.IsEnabled = false;
             }
         }
 
@@ -141,6 +135,8 @@ namespace CalculatorOfCalories
                 else
                     AddProduct.IsEnabled = false;
             }
+            else
+                Add.IsEnabled = false;
         }
     }
 }

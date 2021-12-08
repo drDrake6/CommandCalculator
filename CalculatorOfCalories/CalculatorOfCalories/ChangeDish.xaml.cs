@@ -168,6 +168,8 @@ namespace CalculatorOfCalories
                 else
                     Change.IsEnabled = false;
             }
+            else
+                Add.IsEnabled = false;
         }
 
         private void CheckTextForNewProduct(object sender, TextChangedEventArgs e)
@@ -179,6 +181,8 @@ namespace CalculatorOfCalories
                 else
                     Add.IsEnabled = false;
             }
+            else
+                Add.IsEnabled = false;
         }
     }
 }

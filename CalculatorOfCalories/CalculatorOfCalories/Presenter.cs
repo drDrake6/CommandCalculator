@@ -378,10 +378,10 @@ namespace CalculatorOfCalories
             if (model.AllDishs[dishIndex].GetListOfProducts().Count < 2)
                 throw new ArgumentException("Impossible remove last product");
 
-            model.AllDishs[dishIndex].DeleteByIndex(productIndex);
-            logger.Info("Product \"" + model.AllDishs[dishIndex].GetListOfProducts()[productIndex].Name + "\" " 
+            logger.Info("Product \"" + model.AllDishs[dishIndex].GetListOfProducts()[productIndex].Name + "\" "
                 + " was deleted in dish \"" + model.AllDishs[dishIndex].Name + "\"");
 
+            model.AllDishs[dishIndex].DeleteByIndex(productIndex);
             changeDish.GetSetCalories = model.AllDishs[dishIndex].CalcCalories();
 
             changeDish.GetSetProducts.Items.Clear();

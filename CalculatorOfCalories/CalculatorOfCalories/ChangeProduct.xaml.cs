@@ -98,6 +98,8 @@ namespace CalculatorOfCalories
                 else
                     Change.IsEnabled = false;
             }
+            else
+                Change.IsEnabled = false;
         }
     }
 }

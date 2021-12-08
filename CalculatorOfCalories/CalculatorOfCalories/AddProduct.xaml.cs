@@ -92,6 +92,8 @@ namespace CalculatorOfCalories
                 else
                     Add.IsEnabled = false;
             }
+            else
+                Add.IsEnabled = false;
         }
     }
 }
