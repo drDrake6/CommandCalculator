@@ -10,8 +10,8 @@ namespace CalculatorOfCalories
     internal class Regular
     {
         private static Regex name = new Regex(@"^\S[^\/:*?""<>|]*$");
-        private static Regex numeric = new Regex(@"^\d+\.?\d+$");
         //private static Regex numeric = new Regex(@"^[^\.\,\s]\d*(?:\.\d*)?\s*$");
+        private static Regex numericWithDotWithoutMass = new Regex(@"^\d+(\.?\d+$)?");
         private static Regex numericWithoutDot = new Regex(@"^\d+\s*$");
 
         public static bool CheckName(string name)
@@ -21,7 +21,7 @@ namespace CalculatorOfCalories
 
         public static bool CheckNumeric(string numeric)
         {
-            return Regular.numeric.IsMatch(numeric);
+            return Regular.numericWithDotWithoutMass.IsMatch(numeric);
         }
 
         public static bool CheckNumericWithoutDot(string numeric)
@@ -30,7 +30,7 @@ namespace CalculatorOfCalories
         }
 
         public static Regex HasName{ get => name; }
-        public static Regex HasNumeric { get => numeric; }
+        public static Regex HasNumericWithDotWithoutMass { get => numericWithDotWithoutMass; }
         public static Regex NumericWithoutDot { get => numericWithoutDot; }
     }
 }

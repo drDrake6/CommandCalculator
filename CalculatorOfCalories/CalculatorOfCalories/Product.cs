@@ -18,17 +18,17 @@ namespace CalculatorOfCalories
 
             public Product(double calories)
             {
-                this.calories_per_100_gramms = calories;
+                CaloriesPer100Gramms = calories;
             }
 
             public Product(double calories, double mass) : this(calories)
             {
-                this.mass = mass;
+                MassInKilo = mass;
             }
 
             public Product(double calories, double mass, string name) : this(calories, mass)
             {
-                this.name = name;
+                Name = name;
             }
 
             public Product() { }
@@ -62,7 +62,7 @@ namespace CalculatorOfCalories
                 get { return mass; }
                 set
                 {
-                    if (value < 0)
+                    if (value <= 0)
                         throw new Exception("You cannot eat objects with negative mass");
 
                     mass = value;
