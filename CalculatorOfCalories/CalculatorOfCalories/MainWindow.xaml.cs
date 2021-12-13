@@ -39,6 +39,7 @@ namespace CalculatorOfCalories
         private int age;
 
         public event EventHandler<EventArgs> count;
+        public event EventHandler<EventArgs> saveResult;
 
         public event EventHandler<EventArgs> EventAddProduct;
         public event EventHandler<EventArgs> EventChangeProduct;
@@ -252,6 +253,12 @@ namespace CalculatorOfCalories
                 else
                     Count.IsEnabled = false;
             }
+        }
+
+        private void SaveResult_Click(object sender, RoutedEventArgs e)
+        {
+            saveResult.Invoke(sender, new EventArgs());
+            MessageBox.Show("Result was save", "", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

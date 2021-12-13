@@ -140,13 +140,14 @@ namespace CalculatorOfCalories
 
                 DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<Product>));
                 products = (List<Product>)jsonFormatter.ReadObject(stream);
-                MessageBox.Show("Загружено!");
                 stream.Close();
             }
 
             public void Print()
             {
-                StreamWriter sw = new StreamWriter("Products.txt", false);
+                Directory.CreateDirectory("Products");
+
+                StreamWriter sw = new StreamWriter("Products\\Products.txt", false);
                 foreach (Product p in products)
                 {
                     sw.WriteLine(p.Name + ",  "+ p.CaloriesPer100Gramms + " calories, " + p.MassInKilo + " kg");

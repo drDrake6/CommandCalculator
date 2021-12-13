@@ -66,8 +66,9 @@
                     <ListBox SelectionMode="Multiple" Name="Dishes"/>
                 </DockPanel>
             </UniformGrid>
-            <UniformGrid Columns="2">
+            <UniformGrid Columns="3">
                 <Button IsEnabled="False" Height="70" Content="Count" Margin="10" Name="Count" Click="Count_Click"/>
+                <Button IsEnabled="False" Height="70" Content="Save result" Margin="10" Name="SaveResult" Click="SaveResult_Click"/>
                 <TextBox VerticalAlignment="Center" Margin="10" IsReadOnly="True"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          material:HintAssist.Hint="Result in calories" Name="Result"/>

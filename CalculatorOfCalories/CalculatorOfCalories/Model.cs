@@ -67,7 +67,12 @@ namespace CalculatorOfCalories
             public void Print(List<string> ration, double mass_in_kg, double hight_in_sm, int age_in_years,
                 Sex sex, ActivLevel activ_level)
             {
-                StreamWriter sw = new StreamWriter("Products.txt", false);
+                Directory.CreateDirectory("Result");
+
+                string data = DateTime.Now.Year + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day
+                    + " " + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+
+                StreamWriter sw = new StreamWriter("Result\\" + data + ".txt", false);
                 sw.WriteLine("dishs: ");
                 foreach (string item in ration)
                 {
@@ -76,7 +81,7 @@ namespace CalculatorOfCalories
                 sw.WriteLine("Mass: " + mass_in_kg + " kg");
                 sw.WriteLine("Hight: " + mass_in_kg + " sm");
                 sw.WriteLine("Age: " + age_in_years);
-                if(sex == Sex.Male)
+                if (sex == Sex.Male)
                     sw.WriteLine("Sex: Male");
                 else
                     sw.WriteLine("Sex: Female");
@@ -100,7 +105,12 @@ namespace CalculatorOfCalories
                         break;
                     default:
                         break;
-                }                
+                }
+
+                sw.WriteLine("Result in calories: " + 
+                    Calc(ration, mass_in_kg, hight_in_sm, age_in_years, sex, activ_level));
+
+                sw.Close();
             }
         }
     }

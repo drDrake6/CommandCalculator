@@ -142,19 +142,14 @@ namespace CalculatorOfCalories
                 
                 DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<Dish>));
                 dishs = (List<Dish>)jsonFormatter.ReadObject(stream);
-                string s = String.Empty;
-                foreach (Dish d in dishs)
-                {
-                    s += d.Name + '\n';
-                }
-                Console.WriteLine(s);
-                Console.WriteLine("Загружено!");
                 stream.Close();
             }
 
             public void Print()
             {
-                StreamWriter sw = new StreamWriter("Dishs.txt", false);
+                Directory.CreateDirectory("Dishes");
+
+                StreamWriter sw = new StreamWriter("Dishes\\Dishes.txt", false);
                 foreach (Dish d in dishs)
                 {
                     sw.WriteLine(d.Name + ",  " + d.CalcCalories() + " calories, " + d.CalcMass() + " kg");

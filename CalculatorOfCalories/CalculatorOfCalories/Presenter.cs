@@ -15,6 +15,7 @@ namespace CalculatorOfCalories
         private readonly Model model = new Model();
         private MainWindow? mainWindow = null;
         private readonly Logger logger = LogManager.GetCurrentClassLogger();
+        private Result result;
 
         public Presenter(MainWindow mainWindow)
         {
@@ -28,8 +29,14 @@ namespace CalculatorOfCalories
             mainWindow.EventDeleteDish += new EventHandler<EventArgs>(DeleteDishFunction);
             mainWindow.EventChangeDish += new EventHandler<EventArgs>(ChangeDishFunction);
             mainWindow.count += new EventHandler<EventArgs>(Count);
+            mainWindow.saveResult += new EventHandler<EventArgs>(SaveResult);
 
             logger.Info("Application was run");
+        }
+
+        private void SaveResult(object? sender, EventArgs e)
+        {
+            model.Print(result.ration, result.weight, result.height, result.age, (Sex)result.sex, (ActivLevel)result.mobility);
         }
 
         private void Deserialization()
@@ -77,6 +84,9 @@ namespace CalculatorOfCalories
 
             mainWindow.GetSetResult = result;
             logger.Info("Calculate was succesfully");
+
+            this.result = new Result(ration, mobility, sex, age, weight, height, result);
+            mainWindow.SaveResult.IsEnabled = true;
         }
 
         private void AddProduct(string name, double calories, double mass)
@@ -87,6 +97,7 @@ namespace CalculatorOfCalories
             product.CaloriesPer100Gramms = calories;
 
             model.AllProducts.Add(product);
+            model.AllProducts.Print();
         }
 
         private void AddDish(string name, List<Product> products)
@@ -99,6 +110,7 @@ namespace CalculatorOfCalories
                 str += " " + product.Name;
 
             logger.Info(str);
+            model.AllDishs.Print();
         }
 
         private void ChangeMainDishes()
