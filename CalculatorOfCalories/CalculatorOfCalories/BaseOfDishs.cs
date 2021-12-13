@@ -119,7 +119,9 @@ namespace CalculatorOfCalories
 
             public void Save()
             {
-                FileStream stream = new FileStream("../../dishs.json", FileMode.Create);
+                Directory.CreateDirectory("DataBase");
+
+                FileStream stream = new FileStream("DataBase/dishs.json", FileMode.Create);
                 DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<Dish>));
                 jsonFormatter.WriteObject(stream, dishs);
                 stream.Close();
@@ -132,7 +134,7 @@ namespace CalculatorOfCalories
 
                 try
                 {
-                    stream = new FileStream("../../dishs.json", FileMode.Open);
+                    stream = new FileStream("DataBase/dishs.json", FileMode.Open);
                 }
                 catch (Exception e)
                 {
