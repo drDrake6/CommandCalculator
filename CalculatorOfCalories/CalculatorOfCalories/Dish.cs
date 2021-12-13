@@ -118,6 +118,21 @@ namespace CalculatorOfCalories
                 return calories;
             }
 
+            public double CalcMass()
+            {
+                double mass = 0;
+                foreach (Product product in products)
+                {
+                    mass += product.MassInKilo;
+                }
+                return mass;
+            }
+
+            public int CountOfProducts()
+            {                
+                return products.Count();
+            }
+
             public int CompareTo(Dish? other)
             {
                 return name.CompareTo(other.name);

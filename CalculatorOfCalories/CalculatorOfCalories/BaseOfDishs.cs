@@ -151,6 +151,22 @@ namespace CalculatorOfCalories
                 Console.WriteLine("Загружено!");
                 stream.Close();
             }
+
+            public void Print()
+            {
+                StreamWriter sw = new StreamWriter("Dishs.txt", false);
+                foreach (Dish d in dishs)
+                {
+                    sw.WriteLine(d.Name + ",  " + d.CalcCalories() + " calories, " + d.CalcMass() + " kg");
+                    sw.WriteLine("Products: ");
+                    for (int i = 0; i < d.CountOfProducts(); i++)
+                    {
+                        sw.WriteLine("\t" + d[i].Name + ",  " + d[i].CaloriesPer100Gramms + " calories, " + d[i].MassInKilo + " kg");
+                    }
+                    sw.WriteLine("====================================");
+                }
+                sw.Close();
+            }
         }
     }
 }
