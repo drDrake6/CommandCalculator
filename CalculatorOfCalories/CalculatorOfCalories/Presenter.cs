@@ -30,8 +30,26 @@ namespace CalculatorOfCalories
             mainWindow.EventChangeDish += new EventHandler<EventArgs>(ChangeDishFunction);
             mainWindow.count += new EventHandler<EventArgs>(Count);
             mainWindow.saveResult += new EventHandler<EventArgs>(SaveResult);
+            mainWindow.EventSaveListOfProducts += new EventHandler<EventArgs>(SaveListOfProducts);
+            mainWindow.EventSaveListOfDishes += new EventHandler<EventArgs>(SaveListOfDishes);
 
             logger.Info("Application was run");
+        }
+
+        private void SaveListOfDishes(object? sender, EventArgs e)
+        {
+            if (model.AllDishs.GetListOfDishes().Count < 1)
+                throw new ApplicationException("No one of dish");
+
+            model.AllDishs.Print();
+        }
+
+        private void SaveListOfProducts(object? sender, EventArgs e)
+        {
+            if (model.AllProducts.GetListOfProducts().Count < 1)
+                throw new ApplicationException("No one of product");
+
+            model.AllProducts.Print();
         }
 
         private void SaveResult(object? sender, EventArgs e)
@@ -97,7 +115,6 @@ namespace CalculatorOfCalories
             product.CaloriesPer100Gramms = calories;
 
             model.AllProducts.Add(product);
-            model.AllProducts.Print();
         }
 
         private void AddDish(string name, List<Product> products)
@@ -110,7 +127,6 @@ namespace CalculatorOfCalories
                 str += " " + product.Name;
 
             logger.Info(str);
-            model.AllDishs.Print();
         }
 
         private void ChangeMainDishes()

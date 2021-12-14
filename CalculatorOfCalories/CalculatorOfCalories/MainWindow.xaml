@@ -18,16 +18,18 @@
 
     <UniformGrid Columns="2">
         <UniformGrid Columns="2">
-            <UniformGrid Rows="3">
+            <UniformGrid Rows="4">
                 <Button Height="70" Content="Add product" Name="AddProduct" Margin="10" Click="AddProduct_Click"/>
                 <Button Height="70" Content="Change product" Name="ChangeProduct" Margin="10" Click="ChangeProduct_Click"/>
-                <Button Height="70" Content="Delete Product" Name="DeleteProduct" Margin="10" Click="DeleteProduct_Click"/>
+                <Button Height="70" Content="Delete product" Name="DeleteProduct" Margin="10" Click="DeleteProduct_Click"/>
+                <Button Height="70" Content="Save list of prducts" Name="SaveListProducts" Margin="10" Click="SaveListProducts_Click"/>
             </UniformGrid>
 
-            <UniformGrid Rows="3">
+            <UniformGrid Rows="4">
                 <Button Height="70" Content="Add dish" Name="AddDish" Margin="10" Click="AddDish_Click"/>
                 <Button Height="70" Content="Change dish" Name="ChangeDish" Margin="10" Click="ChangeDish_Click"/>
                 <Button Height="70" Content="Delete dish" Name="DeleteDish" Margin="10" Click="DeleteDish_Click"/>
+                <Button Height="70" Content="Save list of dishes" Name="SaveListDishes" Margin="10" Click="SaveListDishes_Click"/>
             </UniformGrid>
         </UniformGrid>
         <UniformGrid Rows="3">

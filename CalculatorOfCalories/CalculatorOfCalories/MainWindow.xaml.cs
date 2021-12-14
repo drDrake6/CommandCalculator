@@ -49,6 +49,9 @@ namespace CalculatorOfCalories
         public event EventHandler<EventArgs> EventChangeDish;
         public event EventHandler<EventArgs> EventDeleteDish;
 
+        public event EventHandler<EventArgs> EventSaveListOfProducts;
+        public event EventHandler<EventArgs> EventSaveListOfDishes;
+
         public uint GetSetMobility { get => mobility; set => mobility = value; }
         public double GetSetResult { get => result; set => result = value; }
         public uint GetSetSex { get => sex; set => sex = value; }
@@ -259,6 +262,32 @@ namespace CalculatorOfCalories
         {
             saveResult.Invoke(sender, new EventArgs());
             MessageBox.Show("Result was save", "", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void SaveListProducts_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                EventSaveListOfProducts.Invoke(sender, new EventArgs());
+                MessageBox.Show("List was save", "", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void SaveListDishes_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                EventSaveListOfDishes.Invoke(sender, new EventArgs());
+                MessageBox.Show("List was save", "", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
