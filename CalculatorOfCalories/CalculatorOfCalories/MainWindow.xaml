@@ -16,66 +16,72 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <UniformGrid Columns="2">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Background="Orange">
+            <MenuItem Header="Menu" Height="20">
+                <MenuItem Header="Save list of products" Name="SaveListProducts" Click="SaveListProducts_Click"/>
+                <MenuItem Header="Save list of dishes" Name="SaveListDishes" Click="SaveListDishes_Click"/>
+                <MenuItem Header="Save result" IsEnabled="False" Name="SaveResult" Click="SaveResult_Click"/>
+            </MenuItem>
+        </Menu>
         <UniformGrid Columns="2">
-            <UniformGrid Rows="4">
-                <Button Height="70" Content="Add product" Name="AddProduct" Margin="10" Click="AddProduct_Click"/>
-                <Button Height="70" Content="Change product" Name="ChangeProduct" Margin="10" Click="ChangeProduct_Click"/>
-                <Button Height="70" Content="Delete product" Name="DeleteProduct" Margin="10" Click="DeleteProduct_Click"/>
-                <Button Height="70" Content="Save list of prducts" Name="SaveListProducts" Margin="10" Click="SaveListProducts_Click"/>
-            </UniformGrid>
+            <UniformGrid Columns="2">
+                <UniformGrid Rows="3">
+                    <Button Height="70" Content="Add product" Name="AddProduct" Margin="10" Click="AddProduct_Click"/>
+                    <Button Height="70" Content="Change product" Name="ChangeProduct" Margin="10" Click="ChangeProduct_Click"/>
+                    <Button Height="70" Content="Delete product" Name="DeleteProduct" Margin="10" Click="DeleteProduct_Click"/>
+                </UniformGrid>
 
-            <UniformGrid Rows="4">
-                <Button Height="70" Content="Add dish" Name="AddDish" Margin="10" Click="AddDish_Click"/>
-                <Button Height="70" Content="Change dish" Name="ChangeDish" Margin="10" Click="ChangeDish_Click"/>
-                <Button Height="70" Content="Delete dish" Name="DeleteDish" Margin="10" Click="DeleteDish_Click"/>
-                <Button Height="70" Content="Save list of dishes" Name="SaveListDishes" Margin="10" Click="SaveListDishes_Click"/>
+                <UniformGrid Rows="3">
+                    <Button Height="70" Content="Add dish" Name="AddDish" Margin="10" Click="AddDish_Click"/>
+                    <Button Height="70" Content="Change dish" Name="ChangeDish" Margin="10" Click="ChangeDish_Click"/>
+                    <Button Height="70" Content="Delete dish" Name="DeleteDish" Margin="10" Click="DeleteDish_Click"/>
+                </UniformGrid>
+            </UniformGrid>
+            <UniformGrid Rows="3">
+                <UniformGrid VerticalAlignment="Center" Columns="3">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Theme:"/>
+                    <RadioButton IsChecked="True" VerticalContentAlignment="Center" Content="Light" Name="LightTheme" Checked="LightTheme_Checked"/>
+                    <RadioButton VerticalContentAlignment="Center" Content="Dark" Name="DarkTheme" Checked="DarkTheme_Checked"/>
+                </UniformGrid>
+                <UniformGrid Columns="4">
+                    <UniformGrid Rows="6" Margin="10,0,10,0">
+                        <TextBlock Style="{StaticResource MaterialDesignTextBlock}" Text="Mobility" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" IsChecked="True" VerticalContentAlignment="Center" Content="Minimal" Name="MinimalMobility" Checked="Mobility_Checked"/>
+                        <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" IsChecked="True" VerticalContentAlignment="Center" Content="Low" Name="LowMobility" Checked="Mobility_Checked"/>
+                        <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" VerticalContentAlignment="Center" Content="Middle" Name="MiddleMobility" Checked="Mobility_Checked"/>
+                        <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" VerticalContentAlignment="Center" Content="High" Name="HighMobility" Checked="Mobility_Checked"/>
+                        <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" VerticalContentAlignment="Center" Content="Extrim" Name="ExtrimMobility" Checked="Mobility_Checked"/>
+                    </UniformGrid>
+                    <UniformGrid Rows="4" Margin="10,0,10,0">
+                        <TextBlock Style="{StaticResource MaterialDesignTextBlock}" Text="Sex" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" IsChecked="True" VerticalContentAlignment="Center" Content="Male" Name="Male" Checked="Sex_Checked"/>
+                        <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" VerticalContentAlignment="Center" Content="Famale" Name="Famale" Checked="Sex_Checked"/>
+                    </UniformGrid>
+                    <UniformGrid Rows="3" HorizontalAlignment="Center" Margin="0,0,10,0">
+                        <TextBox Name="Weight"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             material:HintAssist.Hint="Weight in kg" TextChanged="CheckText"/>
+                        <TextBox Name="Height"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             material:HintAssist.Hint="Height in sm" TextChanged="CheckText"/>
+                        <TextBox Name="Age"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             material:HintAssist.Hint="Age" TextChanged="CheckText"/>
+                    </UniformGrid>
+                    <DockPanel Margin="5,5,10,5">
+                        <TextBlock Style="{StaticResource MaterialDesignTextBlock}" DockPanel.Dock="Top" Text="Dishes" HorizontalAlignment="Center"/>
+                        <ListBox SelectionMode="Multiple" Name="Dishes"/>
+                    </DockPanel>
+                </UniformGrid>
+                <UniformGrid Columns="2">
+                    <Button IsEnabled="False" Height="70" Content="Count" Margin="10" Name="Count" Click="Count_Click"/>
+                    <TextBox VerticalAlignment="Center" Margin="10" IsReadOnly="True"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             material:HintAssist.Hint="Result in calories" Name="Result"/>
+                </UniformGrid>
             </UniformGrid>
         </UniformGrid>
-        <UniformGrid Rows="3">
-            <UniformGrid VerticalAlignment="Center" Columns="3">
-                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Theme:"/>
-                <RadioButton IsChecked="True" VerticalContentAlignment="Center" Content="Light" Name="LightTheme" Checked="LightTheme_Checked"/>
-                <RadioButton VerticalContentAlignment="Center" Content="Dark" Name="DarkTheme" Checked="DarkTheme_Checked"/>
-            </UniformGrid>
-            <UniformGrid Columns="4">
-                <UniformGrid Rows="6" Margin="10,0,10,0">
-                    <TextBlock Style="{StaticResource MaterialDesignTextBlock}" Text="Mobility" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" IsChecked="True" VerticalContentAlignment="Center" Content="Minimal" Name="MinimalMobility" Checked="Mobility_Checked"/>
-                    <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" IsChecked="True" VerticalContentAlignment="Center" Content="Low" Name="LowMobility" Checked="Mobility_Checked"/>
-                    <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" VerticalContentAlignment="Center" Content="Middle" Name="MiddleMobility" Checked="Mobility_Checked"/>
-                    <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" VerticalContentAlignment="Center" Content="High" Name="HighMobility" Checked="Mobility_Checked"/>
-                    <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" VerticalContentAlignment="Center" Content="Extrim" Name="ExtrimMobility" Checked="Mobility_Checked"/>
-                </UniformGrid>
-                <UniformGrid Rows="4" Margin="10,0,10,0">
-                    <TextBlock Style="{StaticResource MaterialDesignTextBlock}" Text="Sex" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" IsChecked="True" VerticalContentAlignment="Center" Content="Male" Name="Male" Checked="Sex_Checked"/>
-                    <RadioButton Style="{StaticResource MaterialDesignCalendarMeridiemRadioButtonDefault}" VerticalContentAlignment="Center" Content="Famale" Name="Famale" Checked="Sex_Checked"/>
-                </UniformGrid>
-                <UniformGrid Rows="3" HorizontalAlignment="Center" Margin="0,0,10,0">
-                    <TextBox Name="Weight"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         material:HintAssist.Hint="Weight in kg" TextChanged="CheckText"/>
-                    <TextBox Name="Height"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         material:HintAssist.Hint="Height in sm" TextChanged="CheckText"/>
-                    <TextBox Name="Age"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         material:HintAssist.Hint="Age" TextChanged="CheckText"/>
-                </UniformGrid>
-                <DockPanel Margin="5,5,10,5">
-                    <TextBlock Style="{StaticResource MaterialDesignTextBlock}" DockPanel.Dock="Top" Text="Dishes" HorizontalAlignment="Center"/>
-                    <ListBox SelectionMode="Multiple" Name="Dishes"/>
-                </DockPanel>
-            </UniformGrid>
-            <UniformGrid Columns="3">
-                <Button IsEnabled="False" Height="70" Content="Count" Margin="10" Name="Count" Click="Count_Click"/>
-                <Button IsEnabled="False" Height="70" Content="Save result" Margin="10" Name="SaveResult" Click="SaveResult_Click"/>
-                <TextBox VerticalAlignment="Center" Margin="10" IsReadOnly="True"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         material:HintAssist.Hint="Result in calories" Name="Result"/>
-            </UniformGrid>
-        </UniformGrid>
-    </UniformGrid>
+    </DockPanel>
 </Window>
 
