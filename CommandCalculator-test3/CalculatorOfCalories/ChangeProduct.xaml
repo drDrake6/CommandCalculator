@@ -1,0 +1,31 @@
+﻿<Window x:Class="CalculatorOfCalories.ChangeProduct"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CalculatorOfCalories"
+        xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Calories calculator" Height="150" Width="600" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" Icon="/Icon.png"
+        Style="{DynamicResource ResourceKey=Theme}">
+    <UniformGrid Rows="2">
+        <UniformGrid Columns="4">
+            <ComboBox VerticalAlignment="Center" Margin="10" Name="Products"
+                Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
+                     material:HintAssist.Hint="Name of product" SelectionChanged="Products_SelectionChanged"/>
+            <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Name"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                     material:HintAssist.Hint="Name" TextChanged="CheckText"/>
+            <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Calories"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                     material:HintAssist.Hint="Calories (1 per 100 g)" TextChanged="CheckText"/>
+            <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Mass"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                     material:HintAssist.Hint="Mass" TextChanged="CheckText"/>
+        </UniformGrid>
+        <UniformGrid Columns="2">
+            <Button Content="Cancel" Margin="10" Name="Cancel" Click="Cancel_Click" />
+            <Button IsEnabled="False" Content="Change" Margin="10" Name="Change" Click="Change_Click"/>
+        </UniformGrid>
+    </UniformGrid>
+</Window>
