@@ -139,7 +139,7 @@ namespace CalculatorOfCalories
                     AddProduct.IsEnabled = false;
             }
             else
-                Add.IsEnabled = false;
+                AddProduct.IsEnabled = false;
         }
     }
 }

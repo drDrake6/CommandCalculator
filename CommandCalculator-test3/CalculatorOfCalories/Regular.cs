@@ -10,8 +10,7 @@ namespace CalculatorOfCalories
     internal class Regular
     {
         private static Regex name = new Regex(@"^\S[^\/:*?""<>|]*$");
-        //private static Regex numeric = new Regex(@"^[^\.\,\s]\d*(?:\.\d*)?\s*$");
-        private static Regex numericWithDotWithoutMass = new Regex(@"^\d+(\.?\d+$)?");
+        private static Regex numericWithDotWithoutMass = new Regex(@"^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$");
         private static Regex numericWithoutDot = new Regex(@"^\d+\s*$");
 
         public static bool CheckName(string name)
