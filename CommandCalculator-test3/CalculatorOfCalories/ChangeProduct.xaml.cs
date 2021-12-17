@@ -52,8 +52,8 @@ namespace CalculatorOfCalories
             choose.Invoke(this, new EventArgs());
 
             Name.Text = name;
-            Calories.Text = calories.ToString();
-            Mass.Text = mass.ToString();
+            Calories.Text = calories.ToString().Replace(',', '.');
+            Mass.Text = mass.ToString().Replace(',', '.');
         }
 
         private void Change_Click(object sender, RoutedEventArgs e)

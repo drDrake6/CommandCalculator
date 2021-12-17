@@ -62,7 +62,7 @@ namespace CalculatorOfCalories
             choose.Invoke(this, new EventArgs());
 
             Name.Text = name;
-            Calories.Text = calories.ToString();
+            Calories.Text = calories.ToString().Replace(',','.');
         }
 
         private void Products_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -72,7 +72,7 @@ namespace CalculatorOfCalories
 
             chooseProduct.Invoke(this, new EventArgs());
 
-            Mass.Text = massOfProduct.ToString();
+            Mass.Text = massOfProduct.ToString().Replace(',', '.');
         }
 
         private void newProducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -82,7 +82,7 @@ namespace CalculatorOfCalories
 
             selectNewProduct.Invoke(this, new EventArgs());
 
-            productMass.Text = massOfNewProduct.ToString();
+            productMass.Text = massOfNewProduct.ToString().Replace(',', '.');
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
@@ -101,7 +101,7 @@ namespace CalculatorOfCalories
                 }
 
                 addNewProduct.Invoke(this, new EventArgs());
-                Calories.Text = calories.ToString();
+                Calories.Text = calories.ToString().Replace(',', '.');
                 MessageBox.Show("Product was added", "", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
@@ -148,7 +148,7 @@ namespace CalculatorOfCalories
                 try
                 {
                     deleteProduct.Invoke(this, new EventArgs());
-                    Calories.Text = calories.ToString();
+                    Calories.Text = calories.ToString().Replace(',', '.');
                     MessageBox.Show("Product was delete from dish", "", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)

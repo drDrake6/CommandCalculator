@@ -72,7 +72,7 @@ namespace CalculatorOfCalories
 
             choose.Invoke(this, new EventArgs());
 
-            MassOfProduct.Text = mass.ToString();
+            MassOfProduct.Text = mass.ToString().Replace(',', '.');
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
