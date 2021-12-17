@@ -121,7 +121,7 @@ namespace CalculatorOfCalories
 
                 productsInDish.Add(product, mass);
                 addProduct.Invoke(this, new EventArgs()); 
-                Calories.Text = calories.ToString();
+                Calories.Text = calories.ToString().Replace(',', '.'); ;
             }
             catch (Exception)
             {
