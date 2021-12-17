@@ -329,7 +329,7 @@ namespace CalculatorOfCalories
 
             Product product = model.AllProducts[index];
             addDish.GetSetMass = product.MassInKilo;
-            addDish.GetSetCaloriesOfProduct = product.GetTotalCalories();
+            addDish.GetSetCaloriesOfProduct = product.CaloriesPer100Gramms;
         }
         #endregion
 
