@@ -21,7 +21,7 @@
                      material:HintAssist.Hint="Calories (1 per 100 g)" TextChanged="CheckText"/>
             <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="Mass"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                     material:HintAssist.Hint="Mass" TextChanged="CheckText"/>
+                     material:HintAssist.Hint="Mass in kg" TextChanged="CheckText"/>
         </UniformGrid>
         <UniformGrid Columns="2">
             <Button Content="Cancel" Margin="10" Name="Cancel" Click="Cancel_Click" />

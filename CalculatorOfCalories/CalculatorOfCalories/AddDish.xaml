@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CalculatorOfCalories"
         xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Calories calculator" Height="200" Width="500" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" Icon="/Icon.png" 
+        Title="Calories calculator" Height="200" Width="550" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" Icon="/Icon.png" 
         Style="{DynamicResource ResourceKey=Theme}">
     <UniformGrid Columns="2">
         <UniformGrid Columns="2">
@@ -23,7 +23,7 @@
                      material:HintAssist.Hint="Dish's calories"/>
                 <TextBox IsEnabled="False" VerticalAlignment="Center" Margin="10" Name="MassOfProduct"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                     material:HintAssist.Hint="Product's mass" TextChanged="CheckTextMass"/>
+                     material:HintAssist.Hint="Product's mass in kg" TextChanged="CheckTextMass"/>
             </UniformGrid>
         </UniformGrid>
         <UniformGrid Rows="3">

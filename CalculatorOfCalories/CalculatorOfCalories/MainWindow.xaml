@@ -67,7 +67,7 @@
                              material:HintAssist.Hint="Height in sm" TextChanged="CheckText"/>
                         <TextBox Name="Age"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             material:HintAssist.Hint="Age" TextChanged="CheckText"/>
+                             material:HintAssist.Hint="Age in years" TextChanged="CheckText"/>
                     </UniformGrid>
                     <DockPanel Margin="5,5,10,5">
                         <TextBlock Style="{StaticResource MaterialDesignTextBlock}" DockPanel.Dock="Top" Text="Dishes" HorizontalAlignment="Center"/>
