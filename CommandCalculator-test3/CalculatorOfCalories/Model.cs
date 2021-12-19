@@ -79,7 +79,7 @@ namespace CalculatorOfCalories
                     sw.WriteLine("\t" + item);
                 }
                 sw.WriteLine("Mass: " + mass_in_kg + " kg");
-                sw.WriteLine("Hight: " + mass_in_kg + " sm");
+                sw.WriteLine("Hight: " + hight_in_sm + " sm");
                 sw.WriteLine("Age: " + age_in_years);
                 if (sex == Sex.Male)
                     sw.WriteLine("Sex: Male");
